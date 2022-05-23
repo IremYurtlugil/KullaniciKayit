@@ -11,5 +11,7 @@ namespace Entities.Concrete
         public string Surname { get; set; }
         public string Phone{ get; set; }
         public string Adress { get; set; }
+
+        public int ManagerId { get; set; }
     }
 }
