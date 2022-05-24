@@ -12,6 +12,7 @@ namespace Entities.Concrete
         public string Phone{ get; set; }
         public string Adress { get; set; }
 
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
+        public Manager Manager { get; set; }
     }
 }
