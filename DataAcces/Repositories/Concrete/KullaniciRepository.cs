@@ -9,12 +9,17 @@ namespace DataAcces.Repositories.Concrete
 {
     public class KullaniciRepository : IKullaniciRepository
     {
-       private KKContext _dbContext;
+       private KKContext _context;
 
-        public KullaniciRepository(KKContext dbContext)
+        public KullaniciRepository(KKContext context)
         {
-          _dbContext = dbContext;
+          _context = context;
         }
 
+        public Kullanici CheckLogin(string email, string password)
+        {
+            return _context.Kullanici.SingleOrDefault(a => a.Password == password && a.Email == email);
+           
+        }
     }
 }

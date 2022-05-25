@@ -11,7 +11,8 @@ namespace Entities.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Adres> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(a => a.AdresId);
+            builder.Property(a => a.AdresAcıklama).IsRequired();
         }
     }
 }

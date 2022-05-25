@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ViewModels.ManagerVM
+namespace ViewModels.KullaniciVM
 {
    public class LoginVM
     {

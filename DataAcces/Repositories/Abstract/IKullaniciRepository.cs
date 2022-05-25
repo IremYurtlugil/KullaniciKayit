@@ -7,6 +7,6 @@ namespace DataAcces.Repositories.Abstract
 {
     public interface IKullaniciRepository
     {
- 
+        Kullanici CheckLogin(string email, string password);
     }
 }

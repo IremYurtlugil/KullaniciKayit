@@ -4,18 +4,24 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModels.KullaniciVM;
 
 namespace Business.Services.Concrete
 {
     public class KullaniciService : IKullaniciService
     {
-        private IKullaniciRepository _managerRepository;
+        private IKullaniciRepository _kullaniciRepository;
 
-        public KullaniciService(IKullaniciRepository managerRepository) 
+        public KullaniciService(IKullaniciRepository kullaniciRepository) 
         {
-            _managerRepository = managerRepository;
+            _kullaniciRepository = kullaniciRepository;
         }
 
-      
+        public Kullanici CheckLogin(LoginVM loginVM)
+        {            
+            
+         return _kullaniciRepository.CheckLogin(loginVM.Email, loginVM.Password);
+            
+        }
     }
 }
