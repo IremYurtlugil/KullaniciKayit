@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAcces.Repositories.Abstract
+namespace Business.Services.Abstract
 {
-    public interface IUserRepository
+   public interface IKullaniciService
     {
-        
+    
     }
 }

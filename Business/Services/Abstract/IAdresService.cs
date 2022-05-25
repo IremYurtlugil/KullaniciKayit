@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Services.Abstract
 {
-   public interface IUserService
+   public interface IAdresService
     {
     }
 }

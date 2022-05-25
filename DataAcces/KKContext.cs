@@ -13,15 +13,21 @@ namespace DataAcces
         {
             optionsBuilder.UseSqlServer(connectionString: @"Server=.\\SQLEXPRESS;Database=kullanicikaydi;User Id=sa;Password=ilke001; ");
         }
-        public DbSet<User> users { get; set; }
-        public DbSet<Manager> managers { get; set; }
+       
+        public DbSet<Kullanici> Kullanici { get; set; }
+        public DbSet<Cari> Cari { get; set; }
+        public DbSet<Telefon> Telefon { get; set; }
+        public DbSet<Adres> Adres { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new UserConfig());
-            modelBuilder.ApplyConfiguration(new ManagerConfig());
+            base.OnModelCreating(modelBuilder);           
+            modelBuilder.ApplyConfiguration(new KullaniciConfig());
+            modelBuilder.ApplyConfiguration(new CariConfig());
+            modelBuilder.ApplyConfiguration(new TelefonConfig());
+            modelBuilder.ApplyConfiguration(new AdresConfig());
+
         }
     }
 }

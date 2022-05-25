@@ -7,18 +7,15 @@ using System.Text;
 
 namespace Business.Services.Concrete
 {
-    public class ManagerService : IManagerService
+    public class KullaniciService : IKullaniciService
     {
-        private IManagerRepository _managerRepository;
+        private IKullaniciRepository _managerRepository;
 
-        public ManagerService(IManagerRepository managerRepository) 
+        public KullaniciService(IKullaniciRepository managerRepository) 
         {
             _managerRepository = managerRepository;
         }
 
-        public List<User> GetAll()
-        {
-            return _managerRepository.GetList();
-        }
+      
     }
 }

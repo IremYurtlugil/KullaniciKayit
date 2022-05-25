@@ -7,18 +7,14 @@ using System.Text;
 
 namespace DataAcces.Repositories.Concrete
 {
-    public class ManagerRepository : IManagerRepository
+    public class KullaniciRepository : IKullaniciRepository
     {
        private KKContext _dbContext;
 
-        public ManagerRepository(KKContext dbContext)
+        public KullaniciRepository(KKContext dbContext)
         {
           _dbContext = dbContext;
         }
 
-        public List<User> GetList()
-        {
-            return _dbContext.users.ToList();
-        }
     }
 }

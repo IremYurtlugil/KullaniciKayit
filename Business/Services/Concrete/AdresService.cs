@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Business.Services.Concrete
 {
-   public class UserService : IUserService
+   public class AdresService : IAdresService
     {
     }
 }

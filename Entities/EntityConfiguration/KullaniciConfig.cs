@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Entities.EntityConfiguration
 {
-    public class UserConfig : IEntityTypeConfiguration<User>
+    public class KullaniciConfig : IEntityTypeConfiguration<Kullanici>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
-        {        
-            
-            builder.HasKey(a => a.UserId);
+        public void Configure(EntityTypeBuilder<Kullanici> builder)
+        {
+            builder.HasKey(a => a.KullanciId);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(30);
             builder.Property(a => a.Surname).IsRequired().HasMaxLength(50);
+            
         }
     }
 }
