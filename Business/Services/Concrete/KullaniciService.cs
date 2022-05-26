@@ -20,7 +20,12 @@ namespace Business.Services.Concrete
         public Kullanici CheckLogin(LoginVM loginVM)
         {            
             
-         return _kullaniciRepository.CheckLogin(loginVM.Email, loginVM.Password);
+         Kullanici kullanici =  _kullaniciRepository.CheckLogin(loginVM.Email, loginVM.Password);
+            if (kullanici!= null)
+            {
+                return kullanici;
+            }
+            return null;
             
         }
     }

@@ -1,4 +1,5 @@
-﻿using DataAcces.Repositories.Abstract;
+﻿
+using DataAcces.Repositories.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace DataAcces.Repositories.Concrete
 {
     public class KullaniciRepository : IKullaniciRepository
     {
-       private KKContext _context;
+        private readonly KKContext _context;
 
         public KullaniciRepository(KKContext context)
         {
