@@ -9,7 +9,7 @@ namespace ViewModels.CariVM
     {
         public long CariId { get; set; }
         public string Unvan { get; set; }
-       public ICollection<Telefon> telefons { get; set; }
-      public  ICollection<Adres> Adres { get; set; }
+       public List<Telefon> telefons { get; set; }
+      public  List<Adres> Adres { get; set; }
     }
 }

@@ -22,19 +22,20 @@ namespace UI.Controllers
             _adresService = adresService;
             _telefonService = telefonService;
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult Index()
         {
             List<Cari> CariList = _cariService.GetListCari(); 
             List<CariVM> cariVMs = new List<CariVM>();
             foreach (Cari cari in CariList)
             {
+
                 CariVM cariVM = new CariVM()
                 { 
                   CariId = cari.CariId,
                   Unvan = cari.Unvan,
-                  telefons = cari.Telefonlar,
-                  Adres = cari.Adresler                
+                  telefons = cari.Telefonlar.ToList(),
+                  Adres = cari.Adresler.ToList()                
                                     
                 };
                 cariVMs.Add(cariVM);

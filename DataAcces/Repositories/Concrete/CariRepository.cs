@@ -1,5 +1,6 @@
 ﻿using DataAcces.Repositories.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace DataAcces.Repositories.Concrete
 
         public List<Cari> ToList()
         {
-            return _context.Cari.ToList();
+            return _context.Cari.Include(c=>c.Telefonlar).Include(c=>c.Adresler).ToList();
         }
     }
 }

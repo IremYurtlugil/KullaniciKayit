@@ -3,37 +3,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+<button type="button" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#modalLoginForm">
+    Giriş Yap
+</button>
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" aria-labelledby="modalLoginForm" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header">
                 <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
-
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" asp-controller="Home" asp-action="Login" id="PostMethod">
-                <div class="modal-body mx-3">
-                    <div asp-validation-summary="All"></div>
-                    <div class="form-group">
-                        <i class="fas fa-envelope prefix grey-text"></i>
-                        <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email"></label>
-                        <input class="form-control" asp-for="Email" type="email" id="defaultForm-email" placeholder="isimsoyisim@firmamaili.com">
+            <div class="modal-body">                
 
-                    </div>
+                <form method="post" asp-controller="Home" asp-action="Login" id="PostMethod">
+                    <div class="modal-body mx-3">
+                        <div asp-validation-summary="All"></div>
 
-                    <div class="form-group">
-                        <i class="fas fa-lock prefix grey-text"></i>
-                        <label asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass"></label>
-                        <input class="form-control" asp-for="Password" type="password" id="defaultForm-pass" te" placeholder="********">
+                        <div class="form-group">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email"></label>
+                            <input class="form-control" asp-for="Email" type="email" id="defaultForm-email" placeholder="isimsoyisim@firmamaili.com">
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-lock prefix grey-text"></i>
+                            <label asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                            <input class="form-control" asp-for="Password" type="password" id="defaultForm-pass" te" placeholder="********">
+                        </div>
+
+                        <br />
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Giriş</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>                
+                        </div>
                     </div>
-                   
-                    <br />
-                    
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Giriş</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+

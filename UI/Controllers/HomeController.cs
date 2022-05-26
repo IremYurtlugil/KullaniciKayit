@@ -38,7 +38,7 @@ namespace UI.Controllers
                 var kullanici = _kullaniciService.CheckLogin(loginVM);
                 if (kullanici != null)
                 {
-                    return RedirectToAction(nameof(Index), "Kullanici");
+                    return RedirectToAction("Index", "Kullanici");
                 }
                 else
                 {
