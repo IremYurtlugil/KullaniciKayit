@@ -35,16 +35,22 @@ namespace UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cari = _kullaniciService.CheckLogin(loginVM);
-
+                var kullanici = _kullaniciService.CheckLogin(loginVM);
+                if (kullanici != null)
+                {
+                    return RedirectToAction(nameof(Index), "Kullanici");
+                }
+                else
+                {
+                    return View(nameof(Index));
+                }
             }
             else
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");
         }
 
-    
+
     }
 }
