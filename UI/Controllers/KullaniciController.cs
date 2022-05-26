@@ -22,11 +22,10 @@ namespace UI.Controllers
             _adresService = adresService;
             _telefonService = telefonService;
         }
-
+        [HttpPost]
         public IActionResult Index()
         {
-            List<Cari> CariList = new List<Cari>();
-            CariList = _cariService.GetListCari();
+            List<Cari> CariList = _cariService.GetListCari(); 
             List<CariVM> cariVMs = new List<CariVM>();
             foreach (Cari cari in CariList)
             {

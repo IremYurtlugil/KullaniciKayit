@@ -16,6 +16,10 @@ namespace Business.Services.Concrete
         {
             _cariRepository = cariRepository;
         }
-       
+
+        public List<Cari> GetListCari()
+        {
+            return _cariRepository.ToList();
+        }
     }
 }

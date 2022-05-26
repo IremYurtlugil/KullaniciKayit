@@ -8,6 +8,6 @@ namespace Business.Services.Abstract
 {
     public interface ICariService
     {
-       
+        List<Cari> GetListCari();
     }
 }

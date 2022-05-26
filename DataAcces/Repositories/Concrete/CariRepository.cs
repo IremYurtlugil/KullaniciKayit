@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAcces.Repositories.Concrete
@@ -15,6 +16,9 @@ namespace DataAcces.Repositories.Concrete
            _context = context;
         }
 
-     
+        public List<Cari> ToList()
+        {
+            return _context.Cari.ToList();
+        }
     }
 }

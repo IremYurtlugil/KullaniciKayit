@@ -7,6 +7,6 @@ namespace DataAcces.Repositories.Abstract
 {
    public interface ICariRepository
     {
-       
+        List<Cari> ToList();
     }
 }
