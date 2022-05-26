@@ -1,5 +1,5 @@
 ﻿@model ViewModels.CariVM.CariVM
-@{ 
+@{
     Layout = "_Layout";
 }
 
@@ -25,9 +25,7 @@
 
             <!-- Firma Logo -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="@Statu">
-                <div class="sidebar-brand-icon ">
-                    <img class="img-profile rounded-circle" style="height:60px; width:60px;" src="~/@CompanyLogo" />
-                </div>
+
                 <div class="sidebar-brand-text mx-3">@CompanyName</div>
             </a>
 
@@ -51,3 +49,23 @@
             <div class="sidebar-heading">
                 Yönetim
             </div>
+            <script src="~/Dashboard/vendor/jquery/jquery.min.js"></script>
+
+            <script src="~/Dashboard/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+            <script src="~/Boostrap5.1.3/js/bootstrap.min.js"></script>
+            <script src="~/Dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <script src="~/Dashboard/gulp/sb-admin-2.js"></script>
+            <script src="~/MAP Page/js/demo/chart-pie-demo.js"></script>
+
+            <script src="~/MAP Page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="~/MAP Page/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <script src="~/MAP Page/js/sb-admin-2.min.js"></script>
+            <script src="~/MAP Page/vendor/chart.js/Chart.min.js"></script>
+            <script src="~/MAP Page/js/demo/chart-pie-personal.js"></script>
+            <script src="~/MAP Page/js/demo/pie-chart-permission.js"></script>
+
+
+            @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
