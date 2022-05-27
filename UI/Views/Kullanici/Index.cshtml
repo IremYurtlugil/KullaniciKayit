@@ -3,55 +3,116 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<div class="row mt-5">
-    <div class="col-6 offset-3">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Firma Adı</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var cari in Model)
-                {
-                    string targetName = $"#modalCari{cari.CariId}";
-                    <tr id=@cari.CariId data-bs-toggle="modal" data-bs-target=@targetName>
-                        <td>@(Model.IndexOf(cari)+1)</td>
-                        <td>@cari.Unvan</td>
+@*<div class="row mt-5">
+        <div class="col-6 offset-3">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Firma Adı</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cari in Model)
+                    {
+                        string targetName = $"#modalCari{cari.CariId}";
+                        <tr id=@cari.CariId data-bs-toggle="modal" data-bs-target=@targetName>
+                            <td>@(Model.IndexOf(cari)+1)</td>
+                            <td>@cari.Unvan</td>
+                        </tr>
 
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
 
 
-@foreach (var cari in Model)
-{
-    string targetName = $"modalCari{cari.CariId}";
-    <div class="modal fade" id=@targetName tabindex="-1" aria-labelledby=@targetName aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title w-100 font-weight-bold">Cari Hesap</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>@cari.Unvan</p>
-                    @foreach (var tel in @cari.telefons)
-                    {
-                        <p>@tel.TelefonNo</p>
-                    }
-                    @foreach (var addr in @cari.Adres)
-                    {
-                        <p>@addr.AdresAcıklama</p>
-                    }
+    @foreach (var cari in Model)
+    {
+        string targetName = $"modalCari{cari.CariId}";
+        <div class="modal fade" id=@targetName tabindex="-1" aria-labelledby=@targetName aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title w-100 font-weight-bold">Cari Hesap</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>@cari.Unvan</p>
+                        @foreach (var tel in @cari.telefons)
+                        {
+                            <p>@tel.TelefonNo</p>
+                        }
+                        @foreach (var addr in @cari.Adres)
+                        {
+                            <p>@addr.AdresAcıklama</p>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
 
+            <div class="row"><p></p></div>
+            <table>
+                <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
+                <tr><td><button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#newperson">Yeni Cari</button></td></tr>
+
+                <tr>
+                    <td>
+                        <form id="log-out" class="form" action="/home/index" method="post">
+
+                            <a href="/home/Index" class="btn btn-dark btn-lg ">Çıkış</a>
+
+                        </form>
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </div>
+
+    </div>
+    <div class="row" id="carilistele" style="visibility:hidden">
+        
+                @(Html.DevExtreme().DataGrid<CariVM>()
+    .ID("gridContainer")
+    .Columns(columns => {
+        columns.AddFor(m => m.CariId);
+
+        columns.AddFor(m => m.Unvan);
+    })
+    .DataSource(d => d.Mvc().Controller("Kullanici").LoadAction("loadList").Key("CariId"))
+)
+          
+    </div>
+
+
+    <script>
+
+        //function asd() {
+        //    var url = "/Kullanici/loadList";
+
+        //    $.get(URL, function (data) {
+        //        $("#adsadsadsa").html(data);
+        //        alert("Load was performed.");
+        //    });
+        //}
+
+        function listele() {
+
+            var divId = $("#carilistele");
+            divId.css("visibility", "visible");
+
+        }
+
+
+
+
+    </script>

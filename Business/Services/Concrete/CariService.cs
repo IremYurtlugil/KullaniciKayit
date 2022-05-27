@@ -17,6 +17,12 @@ namespace Business.Services.Concrete
             _cariRepository = cariRepository;
         }
 
+        public int Delete(int id)
+        {
+            Cari cari = _cariRepository.Get(id);
+            return _cariRepository.DeleteCari(cari);
+        }
+
         public List<Cari> GetListCari()
         {
             return _cariRepository.ToList();

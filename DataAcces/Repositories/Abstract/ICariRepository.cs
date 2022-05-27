@@ -8,5 +8,7 @@ namespace DataAcces.Repositories.Abstract
    public interface ICariRepository
     {
         List<Cari> ToList();
+        Cari Get(int id);
+        int DeleteCari(Cari cari);
     }
 }

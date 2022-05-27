@@ -1,5 +1,7 @@
 ﻿using Business.Services.Abstract;
 using Business.Services.Concrete;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,24 +27,59 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Cari> CariList = _cariService.GetListCari(); 
+            List<Cari> CariList = _cariService.GetListCari();
             List<CariVM> cariVMs = new List<CariVM>();
             foreach (Cari cari in CariList)
             {
 
                 CariVM cariVM = new CariVM()
-                { 
-                  CariId = cari.CariId,
-                  Unvan = cari.Unvan,
-                  telefons = cari.Telefonlar.ToList(),
-                  Adres = cari.Adresler.ToList()                
-                                    
+                {
+                    CariId = cari.CariId,
+                    Unvan = cari.Unvan,
+                    telefons = cari.Telefonlar.ToList(),
+                    Adres = cari.Adresler.ToList()
+
                 };
                 cariVMs.Add(cariVM);
-                
+
             }
 
             return View(cariVMs);
         }
+
+        [HttpGet]  
+        public object loadList(DataSourceLoadOptions loadOptions)
+        {
+            List<Cari> CariList = _cariService.GetListCari();
+            List<CariVM> cariVMs = new List<CariVM>();
+            foreach (Cari cari in CariList)
+            {
+
+                CariVM cariVM = new CariVM()
+                {
+                    CariId = cari.CariId,
+                    Unvan = cari.Unvan,
+
+                };
+                cariVMs.Add(cariVM);
+
+            }
+            return DataSourceLoader.Load( cariVMs , loadOptions);
+        }
+        
+        public IActionResult Delete (int id) 
+        {
+            var cari = _cariService.Delete(id);
+            return RedirectToAction("Index", "Kullanici");
+        }
+        
+
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+         
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

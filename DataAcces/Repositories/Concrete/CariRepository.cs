@@ -17,6 +17,18 @@ namespace DataAcces.Repositories.Concrete
            _context = context;
         }
 
+        public int DeleteCari(Cari cari)
+        {
+            _context.Cari.Remove(cari);
+            //db tarafında save change yapılacak
+            return _context.SaveChanges();
+        }
+
+        public Cari Get(int id)
+        {
+            return _context.Cari.Where(a => a.CariId == id).SingleOrDefault();
+        }
+
         public List<Cari> ToList()
         {
             return _context.Cari.Include(c=>c.Telefonlar).Include(c=>c.Adresler).ToList();
