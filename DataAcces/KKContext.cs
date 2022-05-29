@@ -7,12 +7,13 @@ using System.Text;
 
 namespace DataAcces
 {
-   // DESKTOP-19RC398
-   public class KKContext : DbContext
+    // DESKTOP-19RC398
+    //Server=.\SQLEXPRESS;Database=kullanicikaydi;User Id=sa;Password=ilke001;"
+    public class KKContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString: @"Server=.\SQLEXPRESS;Database=kullanicikaydi;User Id=sa;Password=ilke001;");
+            optionsBuilder.UseSqlServer(connectionString: "Server=(localdb)\\MsSqlLocalDb;Database=KullaniciKaydi;Trusted_Connection=True;");
         }
        
         public DbSet<Kullanici> Kullanici { get; set; }

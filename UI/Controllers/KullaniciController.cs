@@ -81,5 +81,11 @@ namespace UI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult CariEkleComp()
+        {
+         
+            return ViewComponent("CariEkleGuncelle");
+        }
+
     }
 }

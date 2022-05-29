@@ -1,0 +1,245 @@
+﻿@using HysWEB.DATA.Entity.EmsalKarar.Enum
+@model HysWEB.DATA.Entity.EmsalKarar.EmsalKarar
+
+
+
+<head>
+    <script src="~/js/hyslib/emsalkararcompview.js" asp-append-version="true"></script>
+</head>
+
+
+
+
+
+<form id="emsalkararform" role="form" asp-controller="EmsalKarar" asp-action="EmsalKararEkleGuncelle" data-ajax-mode="replace" data-ajax="true" data-ajax-method="POST">
+
+
+
+    @using (Html.DevExtreme().ValidationGroup("EmsalKararValidationGroup"))
+    {
+
+
+        <div class="row nomargin">
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    @if (!Model.OperationType.Equals("View"))
+                    {
+                        <span class="badge">
+                            <i class="fas fa-align-justify" onclick="EmsSonKayitlarList()"
+                               style="color: #6f42c1;font-size: 1.4em; cursor:pointer;" title="Açıklama için tıklayınız."></i>
+                        </span>
+                    }
+
+                    Kurum Dosya No
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.KurumDosyaNo)
+                                                  .ID("emsalKararKurumDosyaNostr")
+                                                  .ReadOnly(Model.OperationType.Equals("View"))
+                                                  .Height("100%").Width("100%")
+                                                  )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Merci Türü
+                </div>
+
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().SelectBoxFor(m => m.EmsalKararMerciTuru).DataSource(
+                          Html.GetEnumSelectList<EmsalKararMerciTuru>()
+                          .Select(s => new {Value = int.Parse(s.Value), Text = s.Text}))
+                          .Placeholder("Seçiniz...")
+                          .ValueExpr("Value")
+                     //     .Value(null)
+                          .DisplayExpr("Text")
+                          .ID("emsalkararMerciTuruselbox")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+                          )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Türü
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().SelectBoxFor(m => m.EmsalKararTuru).DataSource(
+                          Html.GetEnumSelectList<EmsalKararTuru>()
+                          .Select(s => new {Value = int.Parse(s.Value), Text = s.Text}))
+                          .ValueExpr("Value")
+                          .DisplayExpr("Text")
+                          .ID("emsalkararTuruselbox")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+                          )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Merci
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.Merci)
+                          .ID("EmsalKararMercistr")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+
+                          )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Karar Tar/E/K No
+                </div>
+
+                <div class="col-4 col-no-padding">
+                    @(Html.DevExtreme().DateBoxFor(dbf => dbf.KararTarihi)
+                          .ID("emsalKararTarihi")
+                          .UseMaskBehavior(true)
+                          .DisplayFormat("dd.MM.y")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%"))
+                </div>
+
+
+
+                <div class="col-3 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.EsasNo)
+                          .ID("emsalKararEsasnostr")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+                          .OnInput("EmsEsasKararValidation")
+                          .Placeholder("Esas No...")
+
+                          )
+                </div>
+
+
+
+                <div class="col-3 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.KararNo)
+                          .ID("emsalKararKararnostr")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+                          .Placeholder("Karar no...")
+                          .OnInput("EmsEsasKararValidation")
+
+                          )
+                </div>
+
+
+
+
+
+
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Konusu
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextAreaFor(m=>m.Konu)
+                    .ID("emsalKararKonu")
+                    .Height("60px")
+                    .MinHeight("60px")
+                    .MaxHeight("60px")
+                    .AutoResizeEnabled(true)
+                    .Placeholder("Konu giriniz...")
+                    )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    İlgili Kavramlar
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextAreaFor(m=>m.IlgiliKavram)
+                    .ID("emsalKararIlgiliKavram")
+                    .Height("60px")
+                    .MinHeight("60px")
+                    .MaxHeight("60px")
+                    .AutoResizeEnabled(true)
+                    .Placeholder("İlgili Kavramları giriniz...")
+                    )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    İlgili Kanun
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.IlgiliKanun)
+                          .ID("EmsalKararIlgiliKanun")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+
+                          )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    Maddesi
+                </div>
+                <div class="col-10 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.Madde)
+                          .ID("EmsalKararMadde")
+                          .ReadOnly(Model.OperationType.Equals("View"))
+                          .Height("100%").Width("100%")
+
+                          )
+                </div>
+            </div>
+
+            <div class="row nomargin  hysborder_single_blue">
+                <div class="col-2 hysdivlabel ">
+                    KDN (Dava)
+                </div>
+                <div class="col-8 col-no-padding">
+                    @(Html.DevExtreme().TextBoxFor(tbf => tbf.BagliKdnNoStr)
+                                  .ID("emsalKararKDNDosya")
+                                  .ReadOnly(true)
+                                  .Height("100%").Width("100%")
+                                  )
+                </div>
+
+                <div class="col-1 col-no-padding">
+
+                    @(Html.DevExtreme().Button().UseSubmitBehavior(false).OnClick("KdnEkle").Type(ButtonType.Default)
+                      .ElementAttr("style", "border-radius:2px; background-color:green;").Width("100%").Height("100%").Visible(Model.OperationType!="View")
+                      .Icon("far fa-plus-square")
+                      )
+                </div>
+
+                <div class="col-1 col-no-padding">
+
+                    @(Html.DevExtreme().Button().UseSubmitBehavior(false).OnClick("KdnSil").Type(ButtonType.Default)
+                      .ElementAttr("style", "border-radius:2px; background-color:#bf0000;").Width("100%").Height("100%").Visible(Model.OperationType!="View")
+                      .Icon("far fa-times-circle")
+                      )
+                </div>
+            </div>
+
+
+        </div>
+
+    }
+
+
+    @(Html.DevExtreme().Button().Type(ButtonType.Success)
+      .Visible(Model.OperationType.Equals("View"))
+      .UseSubmitBehavior(false)
+      .ValidationGroup("EmsalKararValidationGroup")
+      .Disabled(Model.OperationType.Equals("View"))
+      .OnClick("SubmitEmsalKarar").ID("submitbuttonemsalkarar"))
+</form>
+

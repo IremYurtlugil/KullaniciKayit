@@ -61,7 +61,7 @@
             <div class="row"><p></p></div>
             <table>
                 <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
-                <tr><td><button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#newperson">Yeni Cari</button></td></tr>
+                <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari</button></td></tr>
 
                 <tr>
                     <td>
@@ -80,8 +80,8 @@
 
     </div>
     <div class="row" id="carilistele" style="visibility:hidden">
-        
-                @(Html.DevExtreme().DataGrid<CariVM>()
+
+        @(Html.DevExtreme().DataGrid<CariVM>()
     .ID("gridContainer")
     .Columns(columns => {
         columns.AddFor(m => m.CariId);
@@ -90,8 +90,10 @@
     })
     .DataSource(d => d.Mvc().Controller("Kullanici").LoadAction("loadList").Key("CariId"))
 )
-          
+
     </div>
+
+
 
 
     <script>
@@ -109,10 +111,32 @@
 
             var divId = $("#carilistele");
             divId.css("visibility", "visible");
+            
 
         }
 
+        function eklemepopupacma() {
+            /*var url = "/Kullanici/CariEkle";*/
+            var url = '@Url.Action("CariEkleComp", "Kullanici")';
+            var popup = $("#cariekleguncelle").dxPopup("instance"); //popup kullanılacağını belirtiyoruz.
+            $.get(url, function (data) {
+                popup.show();
+                $("#cariekleguncellediv").html(data);
+            });
+          
+        }
 
-
+        
 
     </script>
+
+    @(Html.DevExtreme().Popup().ID("cariekleguncelle")
+      .ContentTemplate(new TemplateName("carieklegucelleteplate")))
+
+    @using (Html.DevExtreme().NamedTemplate("carieklegucelleteplate"))
+    {
+        <div id="cariekleguncellediv">
+
+        </div>
+
+    }
