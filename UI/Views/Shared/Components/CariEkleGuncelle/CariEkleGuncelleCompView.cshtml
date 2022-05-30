@@ -1,57 +1,91 @@
 ﻿@using ViewModels.CariVM
 @model List<CariVM>
-
-   
-
 @*<head>
-    <script src="~/js/hyslib/emsalkararcompview.js" asp-append-version="true"></script>
-</head>*@
+        <script src="~/js/hyslib/emsalkararcompview.js" asp-append-version="true"></script>
+    </head>*@
 
 
 <form id="cariekleguncelleform" role="form" asp-controller="Kullanici" asp-action="CariEkleComp" method="post">
 
-     <div class="dx-field">
+    @*<div class="dx-field">
             <div class="dx-field-label">Ad Soyad/Firma Adı</div>
             <div class="dx-field-value">
                 @(Html.DevExtreme().TextBox()
-                    .Placeholder("Enter full name here...")
-                    .MaxLength(30)
-                )
+                        .Placeholder("Enter full name here...")
+                        .MaxLength(30)
+                    )
             </div>
-        </div>
-    
-        <div class="dx-field">
-            <div class="dx-field-label">Telefon Numarası</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().TextBox()
-                    .Mask("+90 (X00) 000-0000")
-                    .MaskRules(new { X = new JS("/[02-9]/") })
-                )
-            </div>
-        </div>  
-                
-     <div class="dx-field">
-            <div class="dx-field-label">Adres</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().TextArea()
-                    .Placeholder("Adres")
-                    .MaxLength(90) 
-                    .ElementAttr(new {
-        @style = "background-color : red",
-        
-        
-    }))
-                
-                 
-                
-            </div>
-        </div>  
+        </div>*@
 
+    @*<div class="dx-field">
+                <div class="dx-field-label" id="TelNo">Telefon Numarası</div>
+                <div class="dx-field-value">
+                    @(Html.DevExtreme().TextBox()
+                        .Mask("+90 (X00) 000-0000")
+                        .MaskRules(new { X = new JS("/[02-9]/") })
+                    )
+                </div>
+            </div>
+
+         <div class="dx-field">
+                <div class="dx-field-label" id="Adres">Adres</div>
+                <div class="dx-field-value">
+                    @(Html.DevExtreme().TextArea()
+                        .Placeholder("Adres")
+                        .MaxLength(90)
+                        .ElementAttr(new {
+            @style = "background-color : red",
+
+
+        }))
+
+
+                </div>
+            </div>*@
+    <input type="text" id="name" placeholder="Ad Soyad/Firma Adı">
+    <input type="text" id="telno" placeholder="Telefon numarası giriniz">
+    <input type="text" id="adres" placeholder="Adresinizi">
+    <input type="button" id="add-row" value="Ekle">
+    <button type="button" id="remove-row">Sil</button>
 </form>
-         
-   
-    
+<table>
+    <thead>
+        <tr>
+            <th>Ad Soyad/Firma Adı</th>
+            <th>Telefon</th>
+            <th>Adres</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#add-row").click(function () {
+            var name = $("#name").val();
+            var tel = $("#telno").val();
+            var adres = $("#adres").val();            
+            var table = "<tr><td>" + name + "</td><td>" + + "</td><td>" + + "</td><td>" + tel + "</td><td>" + + "</td><td>" + + "</td><td>" + adres + "</td><td><input type='checkbox' name='record'></td></tr>";
+            $("table tbody").append(table);
+            $('#name,#telno,#adres').val("");
+        })
+
+        $("#remove-row").click(function () {
+            $("table tbody").find('input[name="record"]').
+                each(function () {
+                    if ($(this).is(":checked")) {
+                        $(this).parents("tr").remove();
+                    }
+                });
+        });
+    });
+  
+
+</script>
 
 <script>
     function textBox_valueChanged(data) {
@@ -59,15 +93,15 @@
             .dxTextBox("instance")
             .option("value", data.value.replace(/\s/g, "").toLowerCase() + "@@corp.com");
     }
-   function textArea_valueChanged(data) {
+    function textArea_valueChanged(data) {
         $("#read-only-textarea").dxTextArea("instance").option("value", data.value);
     }
-    $(function() {
-    $("#textAreaContainer").dxTextArea({
-        placeholder: "Type a text here..."
+    $(function () {
+        $("#textAreaContainer").dxTextArea({
+            placeholder: "Type a text here..."
+        });
     });
-});
-   
+    
 </script>
 
 
