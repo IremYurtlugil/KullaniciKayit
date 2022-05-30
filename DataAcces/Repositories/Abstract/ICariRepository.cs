@@ -10,5 +10,6 @@ namespace DataAcces.Repositories.Abstract
         List<Cari> ToList();
         Cari Get(int id);
         int DeleteCari(Cari cari);
+        object AddCari(Cari cari);
     }
 }

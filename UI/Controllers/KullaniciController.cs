@@ -87,5 +87,12 @@ namespace UI.Controllers
             return ViewComponent("CariEkleGuncelle");
         }
 
+        [HttpPost]
+        public ActionResult CariEkleComp(CariVM cariVM , int id) 
+        {
+            var cari = _cariService.AddCari(cariVM , id);
+            return View();
+        }
+
     }
 }

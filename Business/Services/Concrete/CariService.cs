@@ -4,6 +4,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModels.CariVM;
 using ViewModels.KullaniciVM;
 
 namespace Business.Services.Concrete
@@ -15,6 +16,19 @@ namespace Business.Services.Concrete
         public CariService (ICariRepository cariRepository) 
         {
             _cariRepository = cariRepository;
+        }
+
+        public object AddCari(CariVM cariVM, int id)
+        {
+            Cari cari = new Cari()
+            {
+                CariId = cariVM.CariId,
+                Unvan = cariVM.Unvan,
+                Telefonlar = cariVM.telefons,
+                Adresler = cariVM.Adres
+
+            };
+            return _cariRepository.AddCari(cari);
         }
 
         public int Delete(int id)

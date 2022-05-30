@@ -17,6 +17,12 @@ namespace DataAcces.Repositories.Concrete
            _context = context;
         }
 
+        public object AddCari(Cari cari)
+        {
+            _context.Cari.Add(cari);
+            return _context.SaveChanges();
+        }
+
         public int DeleteCari(Cari cari)
         {
             _context.Cari.Remove(cari);
