@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAcces.Repositories.Concrete
@@ -15,6 +16,11 @@ namespace DataAcces.Repositories.Concrete
         public CariRepository(KKContext context)
         {
            _context = context;
+        }
+
+        public void Add(Telefon telefon)
+        {
+            _context.Telefon.Add(telefon);
         }
 
         public object AddCari(Cari cari)
@@ -35,9 +41,20 @@ namespace DataAcces.Repositories.Concrete
             return _context.Cari.Where(a => a.CariId == id).SingleOrDefault();
         }
 
+        public Cari Get(Expression<Func<Cari, bool>> filter)
+        {
+            return _context.Cari.SingleOrDefault(filter);
+        }
+
         public List<Cari> ToList()
         {
             return _context.Cari.Include(c=>c.Telefonlar).Include(c=>c.Adresler).ToList();
+        }
+
+        public void Update(Cari name)
+        {
+            _context.Cari.Update(name);
+            _context.SaveChanges();
         }
     }
 }

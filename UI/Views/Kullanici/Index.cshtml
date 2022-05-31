@@ -61,7 +61,7 @@
             <div class="row"><p></p></div>
             <table>
                 <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
-                <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari</button></td></tr>
+                <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
 
                 <tr>
                     <td>
@@ -90,9 +90,40 @@
     })
     .DataSource(d => d.Mvc().Controller("Kullanici").LoadAction("loadList").Key("CariId"))
 )
+         <div class="col-md-6">
+                    <table class="table">
+
+                        <thead class="thead-dark">
+
+                            <tr>
+                                <th scope="col">Telefonlar</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th id="tel"></th>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Adresler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th id="address"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
     </div>
-
 
 
 
@@ -117,9 +148,13 @@
 
         function eklemepopupacma() {
             /*var url = "/Kullanici/CariEkle";*/
+
+            debugger;
             var url = '@Url.Action("CariEkleComp", "Kullanici")';
             var popup = $("#cariekleguncelle").dxPopup("instance"); //popup kullanılacağını belirtiyoruz.
             $.get(url, function (data) {
+
+                debugger;
                 popup.show();
                 $("#cariekleguncellediv").html(data);
             });
@@ -139,4 +174,6 @@
 
         </div>
 
+       
     }
+    

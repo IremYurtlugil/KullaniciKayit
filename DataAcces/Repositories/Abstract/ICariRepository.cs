@@ -1,6 +1,7 @@
 ﻿using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAcces.Repositories.Abstract
@@ -11,5 +12,8 @@ namespace DataAcces.Repositories.Abstract
         Cari Get(int id);
         int DeleteCari(Cari cari);
         object AddCari(Cari cari);
+        Cari Get(Expression<Func<Cari, bool>> filter);
+        void Update(Cari name);
+        void Add(Telefon telefon);
     }
 }

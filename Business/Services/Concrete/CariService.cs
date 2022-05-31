@@ -3,6 +3,7 @@ using DataAcces.Repositories.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using ViewModels.CariVM;
 using ViewModels.KullaniciVM;
@@ -16,6 +17,16 @@ namespace Business.Services.Concrete
         public CariService (ICariRepository cariRepository) 
         {
             _cariRepository = cariRepository;
+        }
+
+        public void Add(Telefon telefon)
+        {
+            _cariRepository.Add(telefon);
+        }
+
+        public void Add(Cari cari)
+        {
+            throw new NotImplementedException();
         }
 
         public object AddCari(CariVM cariVM, int id)
@@ -37,9 +48,19 @@ namespace Business.Services.Concrete
             return _cariRepository.DeleteCari(cari);
         }
 
+        public Cari Get(Expression<Func<Cari, bool>> filter = null)
+        {
+            return _cariRepository.Get(filter);
+        }
+
         public List<Cari> GetListCari()
         {
             return _cariRepository.ToList();
+        }
+
+        public void Update(Cari name)
+        {
+            _cariRepository.Update(name);
         }
     }
 }
