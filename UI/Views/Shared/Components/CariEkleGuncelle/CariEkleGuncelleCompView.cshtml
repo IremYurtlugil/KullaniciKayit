@@ -1,4 +1,4 @@
-﻿<div class="modal  fade" id="yenicari" tabindex="-1" aria-labelledby="exampleModalLabel" >
+﻿<div class="modal  fade" id="cariekleguncellediv" tabindex="-1" aria-labelledby="exampleModalLabel" >
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,7 +23,7 @@
                                 <tr>
                                     <th scope="col">Telefonlar</th>
                                     <th>
-                                        <button id="addTelefonInput" class="btn btn-sm btn-success  float-right"><i class="far fa-plus-circle"></i></button>
+                                        <button id="addTelefonInput" class="btn btn-sm btn-success  float-right">+</i></button>
                                     </th>
                                 </tr>
 
@@ -39,7 +39,7 @@
                                 <tr>
                                     <th scope="col">Adresler</th>
                                     <th>
-                                        <button id="addAddressInput" class="btn btn-sm btn-success  float-right"><i class="far fa-plus-circle"></i></button>
+                                        <button id="addAddressInput" class="btn btn-sm btn-success  float-right">+</button>
                                     </th>
                                 </tr>
                             </thead>
@@ -89,7 +89,7 @@
 
         var addressTable = $("#address");
 
-        var personID = id;
+        var CariId = id;
 
         var getPhones = function () {
             $.ajax({
@@ -100,7 +100,7 @@
                     phoneTable.html("");
                 },
                 data: {
-                    "id": personID
+                    "id": CariId
                 },
                 success: function (loadData) {
                     for (var i = 0; i < loadData.phones.length; i++) {
@@ -123,7 +123,7 @@
                     addressTable.html("");
                 },
                 data: {
-                    "id": personID
+                    "id": CariId
                 },
                 success: function (loadData) {
                     for (var i = 0; i < loadData.length; i++) {

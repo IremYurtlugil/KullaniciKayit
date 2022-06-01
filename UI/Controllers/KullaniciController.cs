@@ -94,7 +94,7 @@ namespace UI.Controllers
             return View();
         }
 
-        public IActionResult Update(long id, List<double> cariTel, List<string> cariAdres, string unvan)
+        public IActionResult Update(long id, List<string> cariTel, List<string> cariAdres, string unvan)
         {
            var phone = _telefonService.GetList(i => i.CariId == id).Select(i=>i.TelefonId).ToList();
            var address = _adresService.GetList(i => i.CariId == id).Select(i=>i.AdresId).ToList();
@@ -129,13 +129,13 @@ namespace UI.Controllers
             return RedirectToAction("Index", "Kullanici");
         }
 
-        public JsonResult GetTelNo(int id) 
+        public JsonResult GetTelNo(long id) 
         {
             var phones = _telefonService.GetList(a => a.CariId == id).ToList();
             return Json(phones);
         }
 
-        public JsonResult GetAdres(int id) 
+        public JsonResult GetAdres(long id) 
         {
             var address = _adresService.GetList(a => a.CariId == id).ToList();
             return Json(address);
@@ -143,7 +143,7 @@ namespace UI.Controllers
 
         [HttpPost]
 
-        public IActionResult AddTel(string unvan, List<double> cariTel, List<string> cariAdres, long id) 
+        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres, long id) 
         {
             _cariService.Add(new Cari { Unvan=unvan });
             var cari = _cariService.Get(a => a.Unvan == unvan);
