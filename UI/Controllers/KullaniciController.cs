@@ -93,7 +93,11 @@ namespace UI.Controllers
             var cari = _cariService.AddCari(cariVM, id);
             return View();
         }
-
+        public IActionResult Update() 
+        {
+            return ViewComponent("CariEkleGuncelle");
+        }
+        [HttpPost]
         public IActionResult Update(long id, List<string> cariTel, List<string> cariAdres, string unvan)
         {
            var phone = _telefonService.GetList(i => i.CariId == id).Select(i=>i.TelefonId).ToList();

@@ -1,18 +1,11 @@
-﻿<div class="modal  fade" id="cariekleguncellediv" tabindex="-1" aria-labelledby="exampleModalLabel" >
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Yeni Cari</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+﻿
             <div class="modal-body">
+            
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Ad Soyad/Firma Adı</span>
+                        <span class="input-group-text" id="inputgroup-sizing-sm">Ad Soyad/Firma Adı</span>
                     </div>
-                    <input id="unvan" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <input id="unvan" type="text" class="form-control" aria-label="sizing example input" aria-describedby="inputgroup-sizing-sm">
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -21,9 +14,9 @@
                             <thead class="thead-dark">
 
                                 <tr>
-                                    <th scope="col">Telefonlar</th>
+                                    <th scope="col">telefonlar</th>
                                     <th>
-                                        <button id="addTelefonInput" class="btn btn-sm btn-success  float-right">+</i></button>
+                                        <button id="addTelefonInput" class="btn btn-sm btn-dark float-right">+</button>
                                     </th>
                                 </tr>
 
@@ -37,9 +30,9 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Adresler</th>
+                                    <th scope="col">adresler</th>
                                     <th>
-                                        <button id="addAddressInput" class="btn btn-sm btn-success  float-right">+</button>
+                                        <button id="addAddressInput" class="btn btn-sm btn-dark  float-right">+</button>
                                     </th>
                                 </tr>
                             </thead>
@@ -49,15 +42,16 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Çıkış</button>
-                <button type="button" onclick="saveTel()" class="btn btn-primary">Kaydet</button>
+            <div class="modal-footer">            
+                <button type="button" onclick="saveTel()" class="btn btn-dark">Kaydet</button>
             </div>
-        </div>
-    </div>
-</div>
+ 
+
+
 
 <script>
+
+    
     $("#addTelefonInput").click(function () {
         $("#addTel")
             .append('<tr><th><input type="text" placeholder="Add Phone" class="form-control phoneNumber"></th><th><button  class="btn btn-sm btn-danger deleteTel">x</button></th></tr>');
@@ -75,10 +69,6 @@
     $(document).on('click', '.deleteAddress', function () {
         $(this).parents("tr").remove();
     });
-
-</script>
-
-<script>
 
     var numbers = [];
 
@@ -142,24 +132,17 @@
     };
 
 
-
-
-
-</script>
-
-<script> 
-
     var saveTel = function () {
 
-        $('input[type="text"].phoneNumber').each(function () {
+        $('input[type="text"].cariTel').each(function () {
             numbers.push($(this).val());
         });
 
-        $('input[type="text"].Address').each(function () {
+        $('input[type="text"].cariAdres').each(function () {
             Address.push($(this).val());
         });
         var unvan = $("#unvan").val();
-       
+
 
         var addPhones = function () {
             $.ajax({
@@ -167,9 +150,9 @@
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    "phoneNumbers": numbers,
+                    "cariTel": numbers,
                     "unvan": unvan,
-                    "Address": Address
+                    "cariAdres": Address
                 },
                 success: function () {
                     alert("OK");
@@ -186,43 +169,41 @@
         window.location.reload()
 
     };
+
+
 </script>
 
 
-@*<head>
-        <script src="~/js/hyslib/emsalkararcompview.js" asp-append-version="true"></script>
-    </head>*@
+<!-- #region   popup -->
+@*<form id="cariekleguncellediv" role="form" asp-controller="kullanici" asp-action="carieklecomp" method="post">*@
 
-
-@*<form id="cariekleguncelleform" role="form" asp-controller="Kullanici" asp-action="CariEkleComp" method="post">*@
-
-    @*<div class="dx-field">
-            <div class="dx-field-label">Ad Soyad/Firma Adı</div>
+@*<div class="dx-field">
+            <div class="dx-field-label">ad soyad/firma adı</div>
             <div class="dx-field-value">
-                @(Html.DevExtreme().TextBox()
-                        .Placeholder("Enter full name here...")
-                        .MaxLength(30)
+                @(html.devextreme().textbox()
+                        .placeholder("enter full name here...")
+                        .maxlength(30)
                     )
             </div>
-        </div>*@
+        </div>
 
-    @*<div class="dx-field">
-                <div class="dx-field-label" id="TelNo">Telefon Numarası</div>
+    <div class="dx-field">
+                <div class="dx-field-label" id="telno">telefon numarası</div>
                 <div class="dx-field-value">
-                    @(Html.DevExtreme().TextBox()
-                        .Mask("+90 (X00) 000-0000")
-                        .MaskRules(new { X = new JS("/[02-9]/") })
+                    @(html.devextreme().textbox()
+                        .mask("+90 (x00) 000-0000")
+                        .maskrules(new { x = new js("/[02-9]/") })
                     )
                 </div>
             </div>
 
          <div class="dx-field">
-                <div class="dx-field-label" id="Adres">Adres</div>
+                <div class="dx-field-label" id="adres">adres</div>
                 <div class="dx-field-value">
-                    @(Html.DevExtreme().TextArea()
-                        .Placeholder("Adres")
-                        .MaxLength(90)
-                        .ElementAttr(new {
+                    @(html.devextreme().textarea()
+                        .placeholder("adres")
+                        .maxlength(90)
+                        .elementattr(new {
             @style = "background-color : red",
 
 
@@ -231,74 +212,76 @@
 
                 </div>
             </div>*@
-    @*<input type="text" id="name" placeholder="Ad Soyad/Firma Adı">
-    <input type="text" id="telno" placeholder="Telefon numarası giriniz">
-    <input type="text" id="adres" placeholder="Adresinizi">
-    <input type="button" id="add-row" value="Ekle">
-    <button type="button" id="remove-row">Sil</button>
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Ad Soyad/Firma Adı</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Telefon</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>           
-            <th>Adres</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+@*<input type="text" id="name" placeholder="ad soyad/firma adı">
+        <input type="text" id="telno" placeholder="telefon numarası giriniz">
+        <input type="text" id="adres" placeholder="adresinizi">
+        <input type="button" id="add-row" value="ekle">
+        <button type="button" id="remove-row">sil</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ad soyad/firma adı</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>telefon</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>adres</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
 
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#add-row").click(function () {
-            var name = $("#name").val();
-            var tel = $("#telno").val();
-            var adres = $("#adres").val();            
-            var table = "<tr><td>" + name + "</td><<td>" + tel + "</td><td>" + adres + "</td><td><input type='checkbox' name='record'></td></tr>";
-            $("table tbody").append(table);
-            $('#name,#telno,#adres').val("");
-        })
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#add-row").click(function () {
+                var name = $("#name").val();
+                var tel = $("#telno").val();
+                var adres = $("#adres").val();
+                var table = "<tr><td>" + name + "</td><<td>" + tel + "</td><td>" + adres + "</td><td><input type='checkbox' name='record'></td></tr>";
+                $("table tbody").append(table);
+                $('#name,#telno,#adres').val("");
+            })
 
-        $("#remove-row").click(function () {
-            $("table tbody").find('input[name="record"]').
-                each(function () {
-                    if ($(this).is(":checked")) {
-                        $(this).parents("tr").remove();
-                    }
-                });
+            $("#remove-row").click(function () {
+                $("table tbody").find('input[name="record"]').
+                    each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).parents("tr").remove();
+                        }
+                    });
+            });
         });
-    });
-  
 
-</script>
 
-<script>
-    function textBox_valueChanged(data) {
-        $("#email")
-            .dxTextBox("instance")
-            .option("value", data.value.replace(/\s/g, "").toLowerCase() + "@@corp.com");
-    }
-    function textArea_valueChanged(data) {
-        $("#read-only-textarea").dxTextArea("instance").option("value", data.value);
-    }
-    $(function () {
-        $("#textAreaContainer").dxTextArea({
-            placeholder: "Type a text here..."
+    </script>
+
+    <script>
+        function textbox_valuechanged(data) {
+            $("#email")
+                .dxtextbox("instance")
+                .option("value", data.value.replace(/\s/g, "").tolowercase() + "@@corp.com");
+        }
+        function textarea_valuechanged(data) {
+            $("#read-only-textarea").dxtextarea("instance").option("value", data.value);
+        }
+        $(function () {
+            $("#textareacontainer").dxtextarea({
+                placeholder: "type a text here..."
+            });
         });
-    });
-    
-</script>*@
 
+    </script>*@
+
+
+<!-- #endregion -->
 

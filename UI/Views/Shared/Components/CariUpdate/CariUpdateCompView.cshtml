@@ -1,0 +1,127 @@
+﻿  <div class="modal-body">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Ünvan</span>
+                    </div>
+                    <input id="unvan2" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table">
+
+                            <thead class="thead-dark">
+
+                                <tr>
+                                    <th scope="col">Telefonlar</th>
+                                    <th>
+                                        <button id="TelefonInput" class="btn btn-sm btn-success  float-right">+</button>
+                                    </th>
+                                </tr>
+
+                            </thead>
+                            <tbody id="addTelUpdate">
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Adresler</th>
+                                    <th>
+                                        <button id="AddressInput" class="btn btn-sm btn-success  float-right">+</button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="addAddressUpdate">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" onclick="updateData()" class="btn btn-primary">Güncelle</button>
+            </div>
+<script>
+    $("#TelefonInput").click(function () {
+        $("#addTelUpdate")
+            .append('<tr><th><input type="text" placeholder="Add Phone" class="form-control updatephoneNumber"></th><th><button  class="btn btn-sm btn-danger deleteTel">x</button></th></tr>');
+    });
+
+    $(document).on('click', '.deleteTel', function () {
+        $(this).parents("tr").remove();
+    });
+
+    $("#AddressInput").click(function () {
+        $("#addAddressUpdate")
+            .append('<tr><th><input type="text" placeholder="Add Address" class="form-control updateAddress"></th><th><button  class="btn btn-sm btn-danger deleteAddress">x</button></th></tr>');
+    });
+
+    $(document).on('click', '.deleteAddress', function () {
+        $(this).parents("tr").remove();
+    });
+
+    var editdata = function (id) {
+
+        $("#cari").val(id);
+           
+        var phoneTable = $("#addTelUpdate");
+
+        var addressTable = $("#addAddressUpdate");
+
+        var cariId = id;
+
+        var getPhonesUpdate = function () {
+            $.ajax({
+                url: "/Kullanici/GetTelNo",
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    phoneTable.html("");
+                },
+                data: {
+                    "id": cariId 
+                },
+                success: function (loadData) {
+                    
+                    $("#unvan2").val(loadData.unvan);
+                    for (var i = 0; i < loadData.phones.length; i++) {
+                        var phone = $("#addTelUpdate");
+                        phone.append('<tr><th><input type="text"  class="form-control updatephoneNumber" value="' + loadData[i].TelefonNo + '"></th><th><button  class="btn btn-sm btn-danger deleteTel">x</button></th></tr>');
+                    }
+                },
+                error: function (error) {
+                    console.log(error.Message);
+                },
+            });
+        };
+
+        var getAddressUpdate = function () {
+            $.ajax({
+                url: "/Kullanici/GetAdres",,
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () {
+                    addressTable.html("");
+                },
+                data: {
+                    "id": cariId 
+                },
+                success: function (loadData) {
+                    for (var i = 0; i < loadData.length; i++) {
+                        var address = $("#addAddressUpdate");
+                        address.append('<tr><th><input type="text"  class="form-control updateAddress" value="' + loadData[i].AdresAcıklama + '"></th><th><button  class="btn btn-sm btn-danger deleteAddress">x</button></th></tr>');
+                    }
+                },
+                error: function (error) {
+                    console.log(error.Message);
+                },
+            });
+        };
+
+        getAddressUpdate();
+        getPhonesUpdate();
+    };
+</script>

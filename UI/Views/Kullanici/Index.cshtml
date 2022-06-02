@@ -2,8 +2,6 @@
 
 
 
-
-
 <!-- #region  tablo oluşturma  -->
 @*<div class="row mt-5">
         <div class="col-6 offset-3">
@@ -60,60 +58,112 @@
 <!-- #endregion -->
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-5">
+            <div class="col-md-4">
 
-            <div class="row"><p></p></div>
-            <table>
-                <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
-                <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
+                <div class="row"><p></p></div>
+                <table>
+                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
+                    <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
 
-                <tr>
-                    <td>
-                        <form id="log-out" class="form" action="/home/index" method="post">
+                    <tr>
+                        <td>
+                            <form id="log-out" class="form" action="/home/index" method="post">
 
-                            <a href="/home/Index" class="btn btn-dark btn-lg ">Çıkış</a>
+                                <a href="/home/Index" class="btn btn-dark btn-lg ">Çıkış</a>
 
-                        </form>
-                    </td>
-                </tr>
+                            </form>
+                        </td>
+                    </tr>
 
-
-
-            </table>
+                </table>
+            </div>
         </div>
+        <div class="col-7">
+            <div class="row" id="carilistele" style="visibility:hidden">
+                <div class="col-6 ">
+                    <!-- #region ilk grid işlemi -->
+                    @*@foreach (var cariliste in Model)
+                                {
+                                    <td><a href="/kullanici/delete/@cariliste.cariıd"class="btn btn-primary btn-sm ">sil</a></td>
+                                <td><a href="#update" data-toggle="modal" class="update btn btn-primary btn-sm" onclick="eklemepopupacma()(@cariliste.cariıd)">düzenle</a></td>
+
+                                }
+
+                                @(Html.DevExtreme().DataGrid<CariVM>()
+                            .ID("gridContainer")
+                            .ShowBorders(true)
+                            .Editing(e => e.Mode(GridEditMode.Popup)
+                            .AllowUpdating(true)
+                            .AllowAdding(true)
+                            .AllowDeleting(true)
+                            .Popup(p => p
+                            .Title("Cari Düzenleme")
+                            .ShowTitle(true)
+                            .Width(700)
+                            .Height(525)))
+
+                            .Columns(columns => {
+                                columns.AddFor(m => m.CariId);
+
+                                columns.AddFor(m => m.Unvan);
 
 
-        <div class="row" id="carilistele" style="visibility:hidden">
-            <!-- #region ilk grid işlemi -->
-            @*@foreach (var cariliste in Model)
-                        {
-                            <td><a href="/kullanici/delete/@cariliste.cariıd"class="btn btn-primary btn-sm ">sil</a></td>
-                        <td><a href="#update" data-toggle="modal" class="update btn btn-primary btn-sm" onclick="eklemepopupacma()(@cariliste.cariıd)">düzenle</a></td>
+                            })
+                            .DataSource(d => d.Mvc().Controller("Kullanici").LoadAction("loadList").Key("CariId"))
+                        )
+                                <div class="col-md-6">
+                                    <table class="table">
 
-                        }
+                                        <thead class="thead-dark">
 
-                        @(Html.DevExtreme().DataGrid<CariVM>()
-                    .ID("gridContainer")
-                    .ShowBorders(true)
-                    .Editing(e => e.Mode(GridEditMode.Popup)
-                    .AllowUpdating(true)
-                    .AllowAdding(true)
-                    .AllowDeleting(true)
-                    .Popup(p => p
-                    .Title("Cari Düzenleme")
-                    .ShowTitle(true)
-                    .Width(700)
-                    .Height(525)))
+                                            <tr>
+                                                <th scope="col">Telefonlar</th>
+                                            </tr>
 
-                    .Columns(columns => {
-                        columns.AddFor(m => m.CariId);
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th id="tel"></th>
+                                            </tr>
+                                        </tbody>
 
-                        columns.AddFor(m => m.Unvan);
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Adresler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th id="address"></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>*@
 
 
-                    })
-                    .DataSource(d => d.Mvc().Controller("Kullanici").LoadAction("loadList").Key("CariId"))
-                )
+                    <!-- #endregion -->
+                    @(Html.DevExtreme().DataGrid<CariVM>()
+                .ID("cariDatagrid")
+                .DataSource(ds=>ds.Mvc().Controller("Kullanici").LoadAction("LoadList").Key("CariId"))
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .HoverStateEnabled(true)
+    .ShowBorders(true)
+    .Columns(columns => {
+        columns.AddFor(m => m.CariId)
+            .Width(70);
+
+        columns.AddFor(m => m.Unvan);
+
+    })
+    .OnSelectionChanged("selection_changed")
+)
+
+                    <div id="info">
                         <div class="col-md-6">
                             <table class="table">
 
@@ -145,83 +195,57 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>*@
+                        </div>
+                    </div>
 
-
-            <!-- #endregion -->
-
-            @(Html.DevExtreme().DataGrid<CariVM>()
-                .ID("cariDatagrid")   
-                .DataSource(ds=>ds.Mvc().Controller("Kullanici").LoadAction("LoadList").Key("CariId"))
-    .Selection(s => s.Mode(SelectionMode.Single))
-    .HoverStateEnabled(true)
-    .ShowBorders(true)
-    .Columns(columns => {
-        columns.AddFor(m => m.CariId)
-            .Width(70);
-
-        columns.AddFor(m => m.Unvan);
-
-    })
-    .OnSelectionChanged("selection_changed")
-)
-
-            <div id="info">
-                <div class="col-md-6">
-                    <table class="table">
-
-                        <thead class="thead-dark">
-
-                            <tr>
-                                <th scope="col">Telefonlar</th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th id="tel"></th>
-                            </tr>
-                        </tbody>
-
-                    </table>
                 </div>
-                <div class="col-md-6">
-                    <table class="table">
-                        <thead class="thead-dark">
+
+                <div class="col-6">
+                    @foreach (var cariliste in Model)
+                    {
+                        <table>
                             <tr>
-                                <th scope="col">Adresler</th>
+                                <td><a href="/kullanici/delete/@cariliste.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
+                                <td><a href="#update" data-toggle="modal" class="update btn btn-dark btn-group-sm" onclick="update()(@cariliste.CariId)">Düzenle</a></td>
+
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th id="address"></th>
-                            </tr>
-                        </tbody>
-                    </table>
+                        </table>
+
+
+                    }
                 </div>
             </div>
-
-            
-
         </div>
+
+
+
+
     </div>
-   
-      
-   
+</div>
+@(Html.DevExtreme().Popup().ID("cariekleguncelle")
+      .ContentTemplate(new TemplateName("carieklegucelleteplate")))
+
+@using (Html.DevExtreme().NamedTemplate("carieklegucelleteplate"))
+{
+    <div id="cariekleguncellediv">
+
     </div>
+
+}
+
+@(Html.DevExtreme().Popup().ID("cariupdate")
+      .ContentTemplate(new TemplateName("cariupdateteplate")))
+
+@using (Html.DevExtreme().NamedTemplate("cariupdateteplate"))
+{
+    <div id="cariupdatediv">
+
+    </div>
+
+}
 
 <script>
 
-
-      @*$(function() {
-        debugger;
-             var grid = $("#cariDatagrid").dxDataGrid("instance");
-
-           var datagridDS = [];
-
-           datagridDS = @Html.Raw(Json.Serialize(Model));        
-            grid.option("dataSource",datagridDS);
-          });*@
 
      function listele() {
 
@@ -231,66 +255,58 @@
 
     }
 
-    
+
         function eklemepopupacma() {
             /*var url = "/Kullanici/CariEkle";*/
 
             var url = '@Url.Action("CariEkleComp", "Kullanici")';
             var popup = $("#cariekleguncelle").dxPopup("instance"); //popup kullanılacağını belirtiyoruz.
             $.get(url, function (data) {
+                debugger;
                 popup.show();
                 $("#cariekleguncellediv").html(data);
             });
 
     }
 
-    
-    
-        @*function selection_changed(selectedItems) {
-            debugger;
-            var data = selectedItems.selectedRowsData[0];
+    function update() {
+        debugger;
+        var url = '@Url.Action("Update","Kullanici")';
+         $.get(url, function (data) {
+                debugger;
+                popup.show();
+                $("#cariupdatediv").html(data);
+            });
+    }
 
-            var asd = JsonSerialization(@Model);
-
-            if (data) {
-                for (var i = 0; i < Model.telefons[0].length; i++) {
-                    var tel = $("#tel");
-                    tel.append("<tr><td>" + Model.telefons[i] + "</td></tr>");
-                }
-                for (var i = 0; i < Model.Adres[0].length; i++) {
-                    var address = $("#address");
-                    address.append("<tr><td>" + Model[i].Adres + "</td></tr>");
-
-                }
-
-                }
-    }*@
 
 
     function selection_changed(selectedItems) {
 
-        debugger;
-        $("#tel").innerHtml="";
+        document.getElementById("tel").innerHTML = "";
+
+        document.getElementById("address").innerHTML="";
 
         var data = selectedItems.selectedRowsData[0];
         var cariId = data.CariId;
-        
+
         getPhones(cariId);
+        getAddress(cariId);
 
     }
-        
+
 
     function getPhones(cariId) {
                     $.ajax({
                         url: "/Kullanici/GetTelNo",
                         type: 'GET',
                         dataType: 'json',
-                      
+
                         data: {
                             "id": cariId
                         },
                         success: function (loadData) {
-                            debugger;
+
                             for (var i = 0; i < loadData.length; i++) {
                                 var tel = $("#tel");
                                 tel.append("<tr><td>" + loadData[i].TelefonNo + "</td></tr>");
@@ -302,69 +318,73 @@
                     });
                 };
 
+    function getAddress(cariId) {
+        $.ajax({
+            url: "/Kullanici/GetAdres",
+            type: 'Get',
+            dataType: 'json',
+            data: {
+                "id": cariId
+            },
+            success: function (loadData) {
+                for (var i = 0; i < loadData.length; i++) {
+                    var address = $("#address");
+                    address.append("<tr><td>" + loadData[i].AdresAcıklama + "</td></tr>")
+
+                }
+            }
+        })
+    }
 </script>
-   
- <!-- #region GetDatas -->
-     @*<script>
 
-            var numbers = [];
 
-            var Address = [];
+<!-- #region GetDatas -->
+@*<script>
 
-                var getDatas = function (id) {
+        var numbers = [];
 
-                var phoneTable = $("#tel");
+        var Address = [];
 
-                var addressTable = $("#address");
+            var getDatas = function (id) {
 
-                var CariId = id;
+            var phoneTable = $("#tel");
 
-                
+            var addressTable = $("#address");
 
-                var getAddress = function () {
-                    $.ajax({
-                        url: "/Kullanici/GetAdres",
-                        type: 'GET',
-                        dataType: 'json',
-                        beforeSend: function () {
-                            addressTable.html("");
-                        },
-                        data: {
-                            "id": CariId
-                        },
-                        success: function (loadData) {
-                            for (var i = 0; i < loadData.length; i++) {
-                                var address = $("#address");
-                                address.append("<tr><td>" + loadData[i].address + "</td></tr>");
-                            }
-                        },
-                        error: function (error) {
-                            console.log(error.Message);
-                        },
-                    });
-                };
+            var CariId = id;
 
-                getAddress();
-                getPhones();
+
+
+            var getAddress = function () {
+                $.ajax({
+                    url: "/Kullanici/GetAdres",
+                    type: 'GET',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        addressTable.html("");
+                    },
+                    data: {
+                        "id": CariId
+                    },
+                    success: function (loadData) {
+                        for (var i = 0; i < loadData.length; i++) {
+                            var address = $("#address");
+                            address.append("<tr><td>" + loadData[i].address + "</td></tr>");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error.Message);
+                    },
+                });
             };
 
+            getAddress();
+            getPhones();
+        };
 
 
 
 
-        </script>*@
-    <!-- #endregion -->
- 
 
-
-    @(Html.DevExtreme().Popup().ID("cariekleguncelle")
-      .ContentTemplate(new TemplateName("carieklegucelleteplate")))
-
-    @using (Html.DevExtreme().NamedTemplate("carieklegucelleteplate"))
-    {
-        <div id="cariekleguncellediv">
-
-        </div>
-
-    }
-
+    </script>*@
+<!-- #endregion -->
