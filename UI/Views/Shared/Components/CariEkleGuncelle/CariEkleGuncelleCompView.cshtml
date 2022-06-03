@@ -1,170 +1,169 @@
-﻿
-            <div class="modal-body">
-            
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputgroup-sizing-sm">Ad Soyad/Firma Adı</span>
-                    </div>
-                    <input id="unvan" type="text" class="form-control" aria-label="sizing example input" aria-describedby="inputgroup-sizing-sm">
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table">
+﻿<div class="modal-body">
 
-                            <thead class="thead-dark">
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputgroup-sizing-sm">Ad Soyad/Firma Adı</span>
+        </div>
+        <input id="unvan" type="text" class="form-control" aria-label="sizing example input" aria-describedby="inputgroup-sizing-sm">
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
 
-                                <tr>
-                                    <th scope="col">telefonlar</th>
-                                    <th>
-                                        <button id="addTelefonInput" class="btn btn-sm btn-dark float-right">+</button>
-                                    </th>
-                                </tr>
+                <thead class="thead-dark">
 
-                            </thead>
-                            <tbody id="addTel">
-                            </tbody>
+                    <tr>
+                        <th scope="col">telefonlar</th>
+                        <th>
+                            <button id="addTelefonInput" class="btn btn-sm btn-dark float-right">+</button>
+                        </th>
+                    </tr>
 
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">adresler</th>
-                                    <th>
-                                        <button id="addAddressInput" class="btn btn-sm btn-dark  float-right">+</button>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="addAddress">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">            
-                <button type="button" onclick="saveTel()" class="btn btn-dark">Kaydet</button>
-            </div>
- 
+                </thead>
+                <tbody id="addTel">
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">adresler</th>
+                        <th>
+                            <button id="addAddressInput" class="btn btn-sm btn-dark  float-right">+</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="addAddress">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit"  onclick="saveTel()" class="btn btn-dark">Kaydet</button>
+</div>
+
 
 
 
 <script>
 
-    
+
     $("#addTelefonInput").click(function () {
-        $("#addTel")
-            .append('<tr><th><input type="text" placeholder="Add Phone" class="form-control phoneNumber"></th><th><button  class="btn btn-sm btn-danger deleteTel">x</button></th></tr>');
+        $("#addtel")
+            .append('<tr><th><input type="text" placeholder="add phone" class="form-control phonenumber"></th><th><button  class="btn btn-sm btn-danger deletetel">x</button></th></tr>');
     });
 
-    $(document).on('click', '.deleteTel', function () {
+    $(document).on('click', '.deletetel', function () {
         $(this).parents("tr").remove();
     });
 
-    $("#addAddressInput").click(function () {
-        $("#addAddress")
-            .append('<tr><th><input type="text" placeholder="Add Address" class="form-control Address"></th><th><button  class="btn btn-sm btn-danger deleteAddress">x</button></th></tr>');
+    $("#addaddressınput").click(function () {
+        $("#addaddress")
+            .append('<tr><th><input type="text" placeholder="add address" class="form-control address"></th><th><button  class="btn btn-sm btn-danger deleteaddress">x</button></th></tr>');
     });
 
-    $(document).on('click', '.deleteAddress', function () {
+    $(document).on('click', '.deleteaddress', function () {
         $(this).parents("tr").remove();
     });
 
     var numbers = [];
 
-    var Address = [];
+    var address = [];
 
-    var getDatas = function (id) {
-        var phoneTable = $("#tel");
+    var getdatas = function (id) {
+        var phonetable = $("#tel");
 
-        var addressTable = $("#address");
+        var addresstable = $("#address");
 
-        var CariId = id;
+        var cariıd = id;
 
-        var getPhones = function () {
+        var getphones = function () {
             $.ajax({
-                url: "/Kullanici/GetTelNo",
-                type: 'GET',
-                dataType: 'json',
-                beforeSend: function () {
-                    phoneTable.html("");
+                url: "/kullanici/GetTelNo",
+                type: 'get',
+                datatype: 'json',
+                beforesend: function () {
+                    phonetable.html("");
                 },
                 data: {
-                    "id": CariId
+                    "id": cariıd
                 },
-                success: function (loadData) {
-                    for (var i = 0; i < loadData.phones.length; i++) {
+                success: function (loaddata) {
+                    for (var i = 0; i < loaddata.phones.length; i++) {
                         var tel = $("#tel");
-                        tel.append("<tr><td>" + loadData.phones[i] + "</td></tr>");
+                        tel.append("<tr><td>" + loaddata.phones[i] + "</td></tr>");
                     }
                 },
                 error: function (error) {
-                    console.log(error.Message);
+                    console.log(error.message);
                 },
             });
         };
 
-        var getAddress = function () {
+        var getaddress = function () {
             $.ajax({
-                url: "/Kullanici/GetAdres",
-                type: 'GET',
-                dataType: 'json',
-                beforeSend: function () {
-                    addressTable.html("");
+                url: "/kullanici/GetAdres",
+                type: 'get',
+                datatype: 'json',
+                beforesend: function () {
+                    addresstable.html("");
                 },
                 data: {
-                    "id": CariId
+                    "id": cariıd
                 },
-                success: function (loadData) {
-                    for (var i = 0; i < loadData.length; i++) {
+                success: function (loaddata) {
+                    for (var i = 0; i < loaddata.length; i++) {
                         var address = $("#address");
-                        address.append("<tr><td>" + loadData[i].address + "</td></tr>");
+                        address.append("<tr><td>" + loaddata[i].address + "</td></tr>");
                     }
                 },
                 error: function (error) {
-                    console.log(error.Message);
+                    console.log(error.message);
                 },
             });
         };
 
-        getAddress();
-        getPhones();
+        getaddress();
+        getphones();
     };
 
 
-    var saveTel = function () {
+    var savetel = function () {
 
-        $('input[type="text"].cariTel').each(function () {
+        $('input[type="text"].caritel').each(function () {
             numbers.push($(this).val());
         });
 
-        $('input[type="text"].cariAdres').each(function () {
-            Address.push($(this).val());
+        $('input[type="text"].cariadres').each(function () {
+            address.push($(this).val());
         });
         var unvan = $("#unvan").val();
 
 
-        var addPhones = function () {
+        var addphones = function () {
             $.ajax({
-                url: "/Kullanici/AddTel",
-                type: 'POST',
-                dataType: 'json',
+                url: "/kullanici/AddTel",
+                type: 'post',
+                datatype: 'json',
                 data: {
-                    "cariTel": numbers,
+                    "caritel": numbers,
                     "unvan": unvan,
-                    "cariAdres": Address
+                    "cariadres": address
                 },
                 success: function () {
-                    alert("OK");
+                    alert("ok");
                 },
                 error: function (error) {
-                    console.log(error.Message);
+                    console.log(error.message);
                 },
             });
         };
 
 
-        addPhones();
+        addphones();
         window.history.go(0)
         window.location.reload()
 
@@ -284,4 +283,3 @@
 
 
 <!-- #endregion -->
-

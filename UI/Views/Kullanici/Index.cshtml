@@ -1,7 +1,6 @@
 ﻿@model List<CariVM>
 
 
-
 <!-- #region  tablo oluşturma  -->
 @*<div class="row mt-5">
         <div class="col-6 offset-3">
@@ -153,6 +152,15 @@
     .Selection(s => s.Mode(SelectionMode.Single))
     .HoverStateEnabled(true)
     .ShowBorders(true)
+    //.Editing(e=> e.Mode(GridEditMode.Popup)
+    //   .AllowUpdating(true)
+    //   .AllowAdding(true)
+    //   .AllowDeleting(true)
+    //   .Popup(p=>p.Title("Info")
+    //   .ShowTitle(true)
+    //   .Width(700)
+    //   .Height(525)))
+
     .Columns(columns => {
         columns.AddFor(m => m.CariId)
             .Width(70);
@@ -192,21 +200,24 @@
                                 <tbody>
                                     <tr>
                                         <th id="address"></th>
-                                    </tr>
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
                 </div>
+                <br />
+                <br />
 
                 <div class="col-6">
                     @foreach (var cariliste in Model)
                     {
+                   
                         <table>
                             <tr>
                                 <td><a href="/kullanici/delete/@cariliste.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
-                                <td><a href="#update" data-toggle="modal" class="update btn btn-dark btn-group-sm" onclick="update()(@cariliste.CariId)">Düzenle</a></td>
+                                  <td><a href="/kullanici/update/@cariliste.CariId" class="btn btn-dark btn-group-sm " onclick="update()">Güncelle</a></td>                          
 
                             </tr>
                         </table>
@@ -223,6 +234,7 @@
     </div>
 </div>
 @(Html.DevExtreme().Popup().ID("cariekleguncelle")
+
       .ContentTemplate(new TemplateName("carieklegucelleteplate")))
 
 @using (Html.DevExtreme().NamedTemplate("carieklegucelleteplate"))
@@ -272,6 +284,7 @@
     function update() {
         debugger;
         var url = '@Url.Action("Update","Kullanici")';
+        var popup = $("#cariekleguncelle").dxPopup("instance");
          $.get(url, function (data) {
                 debugger;
                 popup.show();
