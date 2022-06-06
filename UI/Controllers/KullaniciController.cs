@@ -36,8 +36,8 @@ namespace UI.Controllers
                 {
                     CariId = cari.CariId,
                     Unvan = cari.Unvan,
-                    telefons = cari.Telefonlar.ToList(),
-                    Adres = cari.Adresler.ToList()
+                    telefons = cari.Telefonlar.Select(w=>w.TelefonNo).ToList(),
+                    Adres = cari.Adresler.Select(w => w.AdresAcıklama).ToList()
 
                 };
                 cariVMs.Add(cariVM);
@@ -88,14 +88,14 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CariEkleComp(CariVM cariVM, int id)
+        public ActionResult CariEkleComp(CariVM cariVM)
         {
-            var cari = _cariService.AddCari(cariVM, id);
+            var cari = _cariService.AddCari(cariVM);
             return View();
         }
         public IActionResult Update() 
         {
-            return ViewComponent("CariEkleGuncelle");
+            return ViewComponent("CariUpdate");
         }
         [HttpPost]
         public IActionResult Update(long id, List<string> cariTel, List<string> cariAdres, string unvan)
@@ -147,7 +147,7 @@ namespace UI.Controllers
 
         [HttpPost]
 
-        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres, long id) 
+        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres) 
         {
             _cariService.Add(new Cari { Unvan=unvan });
             var cari = _cariService.Get(a => a.Unvan == unvan);
@@ -159,7 +159,7 @@ namespace UI.Controllers
             {
                 _telefonService.Add(new Telefon { TelefonNo = item, CariId = cari.CariId });
             }
-            return RedirectToAction("Index", "Kullanici");
+            return Ok();
         }
         
        

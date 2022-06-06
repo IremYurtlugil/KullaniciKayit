@@ -42,7 +42,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="submit"  onclick="saveTel()" class="btn btn-dark">Kaydet</button>
+    <button type="submit"  onclick="savetel()" class="btn btn-dark">Kaydet</button>
 </div>
 
 
@@ -52,7 +52,7 @@
 
 
     $("#addTelefonInput").click(function () {
-        $("#addtel")
+        $("#addTel")
             .append('<tr><th><input type="text" placeholder="add phone" class="form-control phonenumber"></th><th><button  class="btn btn-sm btn-danger deletetel">x</button></th></tr>');
     });
 
@@ -60,8 +60,8 @@
         $(this).parents("tr").remove();
     });
 
-    $("#addaddressınput").click(function () {
-        $("#addaddress")
+    $("#addAddressInput").click(function () {
+        $("#addAddress")
             .append('<tr><th><input type="text" placeholder="add address" class="form-control address"></th><th><button  class="btn btn-sm btn-danger deleteaddress">x</button></th></tr>');
     });
 
@@ -82,7 +82,7 @@
 
         var getphones = function () {
             $.ajax({
-                url: "/kullanici/GetTelNo",
+                url: "/Kullanici/GetTelNo",
                 type: 'get',
                 datatype: 'json',
                 beforesend: function () {
@@ -94,7 +94,7 @@
                 success: function (loaddata) {
                     for (var i = 0; i < loaddata.phones.length; i++) {
                         var tel = $("#tel");
-                        tel.append("<tr><td>" + loaddata.phones[i] + "</td></tr>");
+                        tel.append("<tr><td>" + loaddata.TelefonNo[i] + "</td></tr>");
                     }
                 },
                 error: function (error) {
@@ -103,9 +103,9 @@
             });
         };
 
-        var getaddress = function () {
+        var getaddress = function () {           
             $.ajax({
-                url: "/kullanici/GetAdres",
+                url: "/Kullanici/GetAdres",
                 type: 'get',
                 datatype: 'json',
                 beforesend: function () {
@@ -117,7 +117,7 @@
                 success: function (loaddata) {
                     for (var i = 0; i < loaddata.length; i++) {
                         var address = $("#address");
-                        address.append("<tr><td>" + loaddata[i].address + "</td></tr>");
+                        address.append("<tr><td>" + loaddata[i].Adres + "</td></tr>");
                     }
                 },
                 error: function (error) {
@@ -132,26 +132,28 @@
 
 
     var savetel = function () {
-
-        $('input[type="text"].caritel').each(function () {
+        debugger;
+        $('input[type="text"].phonenumber').each(function () {
+            debugger;
             numbers.push($(this).val());
         });
 
-        $('input[type="text"].cariadres').each(function () {
+        $('input[type="text"].address').each(function () {
             address.push($(this).val());
         });
         var unvan = $("#unvan").val();
 
 
         var addphones = function () {
+            debugger;
             $.ajax({
-                url: "/kullanici/AddTel",
+                url: "/Kullanici/CariEkleComp",
                 type: 'post',
                 datatype: 'json',
                 data: {
-                    "caritel": numbers,
-                    "unvan": unvan,
-                    "cariadres": address
+                    "telefons": numbers,
+                    "Unvan": unvan,
+                    "Adres": address
                 },
                 success: function () {
                     alert("ok");

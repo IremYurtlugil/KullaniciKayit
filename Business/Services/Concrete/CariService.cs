@@ -26,17 +26,28 @@ namespace Business.Services.Concrete
 
         public void Add(Cari cari)
         {
-            throw new NotImplementedException();
+            _cariRepository.Add(cari);
         }
 
-        public object AddCari(CariVM cariVM, int id)
+        public object AddCari(CariVM cariVM)  //ekleme sırasında string telefon nesnesinin dönüştürülmesi
         {
+            List<Telefon> telefons = new List<Telefon>(); //telefon nesnesi alan liste
+            List<Adres> adres = new List<Adres>();
+            foreach (var item in cariVM.Adres) 
+            {
+                adres.Add(new Adres { AdresAcıklama = item, CariId = cariVM.CariId }); 
+            }
+            foreach (var item in cariVM.telefons)
+            {
+                telefons.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
+            }
             Cari cari = new Cari()
             {
-                CariId = cariVM.CariId,
+                
                 Unvan = cariVM.Unvan,
-                Telefonlar = cariVM.telefons,
-                Adresler = cariVM.Adres
+                Telefonlar = telefons,
+                Adresler = adres
+
 
             };
             return _cariRepository.AddCari(cari);

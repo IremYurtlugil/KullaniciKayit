@@ -15,5 +15,6 @@ namespace DataAcces.Repositories.Abstract
         Cari Get(Expression<Func<Cari, bool>> filter);
         void Update(Cari name);
         void Add(Telefon telefon);
+        void Add(Cari cari);
     }
 }

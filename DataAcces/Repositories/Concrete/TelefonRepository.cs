@@ -21,6 +21,7 @@ namespace DataAcces.Repositories.Concrete
         public void Add(Telefon telefon)
         {
             _context.Telefon.Add(telefon);
+            _context.SaveChanges();
         }
 
         public void Delete(Telefon telefon)

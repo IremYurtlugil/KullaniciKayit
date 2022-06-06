@@ -1,65 +1,5 @@
-﻿<input type="text" id="person"  hidden />
-
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Güncelleme</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Ünvan</span>
-                    </div>
-                    <input id="unvan2" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table">
-
-                            <thead class="thead-dark">
-
-                                <tr>
-                                    <th scope="col">Telefonlar</th>
-                                    <th>
-                                        <button id="TelefonInput" class="btn btn-sm btn-success  float-right">+</button>
-                                    </th>
-                                </tr>
-
-                            </thead>
-                            <tbody id="addTelUpdate">
-                            </tbody>
-
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Adresler</th>
-                                    <th>
-                                        <button id="AddressInput" class="btn btn-sm btn-success  float-right">+</button>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="addAddressUpdate">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Çıkış</button>
-                <button type="button" onclick="updateData()" class="btn btn-primary">Güncelle</button>
-            </div>
-        </div>
-    </div>
-
-
-
-@*<div class="modal-body">
+﻿
+<div class="modal-body">
     <div class="input-group input-group-sm mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-sm">Ünvan</span>
@@ -75,7 +15,7 @@
                     <tr>
                         <th scope="col">Telefonlar</th>
                         <th>
-                            <button id="TelefonInput" class="btn btn-sm btn-success  float-right">+</button>
+                            <button id="TelefonInput" class="btn btn-sm btn-dark  float-right">+</button>
                         </th>
                     </tr>
 
@@ -91,7 +31,7 @@
                     <tr>
                         <th scope="col">Adresler</th>
                         <th>
-                            <button id="AddressInput" class="btn btn-sm btn-success  float-right">+</button>
+                            <button id="AddressInput" class="btn btn-sm btn-dark  float-right">+</button>
                         </th>
                     </tr>
                 </thead>
@@ -102,9 +42,10 @@
     </div>
 </div>
 <div class="modal-footer">
+  
+    <button type="button" onclick="updateData()" class="btn btn-dark">Güncelle</button>
+</div>
 
-    <button type="button" onclick="updateData()" class="btn btn-primary">Güncelle</button>
-</div>*@
 <script>
     $("#TelefonInput").click(function () {
         $("#addTelUpdate")
@@ -185,8 +126,8 @@
         getAddressUpdate();
         getPhonesUpdate();
     };
-</script>
-<script>
+
+
     var numbersUp = [];
     var addressUp = [];
 

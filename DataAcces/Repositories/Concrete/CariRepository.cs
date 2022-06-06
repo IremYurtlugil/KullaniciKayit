@@ -21,6 +21,13 @@ namespace DataAcces.Repositories.Concrete
         public void Add(Telefon telefon)
         {
             _context.Telefon.Add(telefon);
+            _context.SaveChanges();
+        }
+
+        public void Add(Cari cari)
+        {
+            _context.Cari.Add(cari);
+            _context.SaveChanges();
         }
 
         public object AddCari(Cari cari)

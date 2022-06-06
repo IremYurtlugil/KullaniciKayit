@@ -12,7 +12,7 @@ namespace Business.Services.Abstract
     {
         List<Cari> GetListCari();
         int Delete(int id);
-        object AddCari(CariVM cariVM, int id);
+        object AddCari(CariVM cariVM);
         Cari Get(Expression<Func<Cari, bool>>filter = null);
         void Update(Cari name);
         void Add(Telefon telefon);

@@ -168,6 +168,7 @@
         columns.AddFor(m => m.Unvan);
 
     })
+   
     .OnSelectionChanged("selection_changed")
 )
 
@@ -217,7 +218,7 @@
                         <table>
                             <tr>
                                 <td><a href="/kullanici/delete/@cariliste.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
-                                  <td><a href="/kullanici/update/@cariliste.CariId" class="btn btn-dark btn-group-sm " onclick="update()">Güncelle</a></td>                          
+                                 <td><button type="button" class="btn btn-dark btn-group-sm" onclick=" update()">Güncelle</button></td>                    
 
                             </tr>
                         </table>
@@ -282,9 +283,9 @@
     }
 
     function update() {
-        debugger;
+   
         var url = '@Url.Action("Update","Kullanici")';
-        var popup = $("#cariekleguncelle").dxPopup("instance");
+        var popup = $("#cariupdate").dxPopup("instance");
          $.get(url, function (data) {
                 debugger;
                 popup.show();
@@ -295,6 +296,7 @@
 
 
     function selection_changed(selectedItems) {
+        debugger;
 
         document.getElementById("tel").innerHTML = "";
 
