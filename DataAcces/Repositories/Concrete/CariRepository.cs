@@ -60,7 +60,8 @@ namespace DataAcces.Repositories.Concrete
 
         public void Update(Cari name)
         {
-            _context.Cari.Update(name);
+            var updateEntity= _context.Cari.Update(name);
+            updateEntity.State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

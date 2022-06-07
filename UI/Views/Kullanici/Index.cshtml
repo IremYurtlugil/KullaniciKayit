@@ -1,6 +1,5 @@
 ﻿@model List<CariVM>
 
-
 <!-- #region  tablo oluşturma  -->
 @*<div class="row mt-5">
         <div class="col-6 offset-3">
@@ -168,7 +167,7 @@
         columns.AddFor(m => m.Unvan);
 
     })
-   
+
     .OnSelectionChanged("selection_changed")
 )
 
@@ -201,7 +200,7 @@
                                 <tbody>
                                     <tr>
                                         <th id="address"></th>
-                                    </tr> 
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -212,13 +211,13 @@
                 <br />
 
                 <div class="col-6">
-                    @foreach (var cariliste in Model)
+                    @foreach (CariVM cariVM in Model)
                     {
-                   
+
                         <table>
                             <tr>
-                                <td><a href="/kullanici/delete/@cariliste.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
-                                 <td><button type="button" class="btn btn-dark btn-group-sm" onclick=" update()">Güncelle</button></td>                    
+                                <td><a href="/kullanici/delete/@cariVM.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
+                                <td><button type="button" class="btn btn-dark btn-group-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
 
                             </tr>
                         </table>
@@ -259,7 +258,6 @@
 
 <script>
 
-
      function listele() {
 
             var divId = $("#carilistele");
@@ -282,21 +280,34 @@
 
     }
 
-    function update() {
-   
-        var url = '@Url.Action("Update","Kullanici")';
+    function update(CariId_) {
+        debugger;
+
+        var url_ = '@Url.Action("Update","Kullanici")';
         var popup = $("#cariupdate").dxPopup("instance");
-         $.get(url, function (data) {
-                debugger;
-                popup.show();
-                $("#cariupdatediv").html(data);
+
+         $.ajax({
+                url: url_,
+                type: 'GET',
+                dataType: 'html',
+                data: {
+                    "CariId": CariId_
+                },
+             success: function (data) {
+                 debugger;
+
+                    popup.show();
+                    $("#cariupdatediv").html(data);
+                },
+                error: function (error) {
+                    console.log(error.Message);
+                },
             });
     }
 
 
 
     function selection_changed(selectedItems) {
-        debugger;
 
         document.getElementById("tel").innerHTML = "";
 
@@ -353,7 +364,7 @@
 </script>
 
 
-<!-- #region GetDatas -->
+<!-- #region   script -->
 @*<script>
 
         var numbers = [];
@@ -402,4 +413,6 @@
 
 
     </script>*@
+
+
 <!-- #endregion -->

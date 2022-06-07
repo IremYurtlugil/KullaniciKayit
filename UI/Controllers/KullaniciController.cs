@@ -93,15 +93,20 @@ namespace UI.Controllers
             var cari = _cariService.AddCari(cariVM);
             return View();
         }
-        public IActionResult Update() 
+
+        [HttpGet]
+        public IActionResult Update(long CariId) 
         {
-            return ViewComponent("CariUpdate");
+            Cari cari = _cariService.Get(i => i.CariId == CariId);
+
+            return ViewComponent("CariUpdate", cari);
         }
+
         [HttpPost]
-        public IActionResult Update(long id, List<string> cariTel, List<string> cariAdres, string unvan)
+        public IActionResult Update(CariVM cariVM)
         {
-           var phone = _telefonService.GetList(i => i.CariId == id).Select(i=>i.TelefonId).ToList();
-           var address = _adresService.GetList(i => i.CariId == id).Select(i=>i.AdresId).ToList();
+           var phone = _telefonService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.TelefonId).ToList();
+           var address = _adresService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.AdresId).ToList();
            
             if (phone != null)
             {
@@ -118,16 +123,16 @@ namespace UI.Controllers
                 }
 
             }
-            var name = _cariService.Get(i => i.CariId == id);
-            name.Unvan = unvan;
+            var name = _cariService.Get(i => i.CariId == cariVM.CariId);         
+            name.Unvan = cariVM.Unvan;
             _cariService.Update(name);
-            foreach (var item in cariTel)
+            foreach (var item in cariVM.telefons)
             {
-                _cariService.Add(new Telefon { TelefonNo = item, CariId = id });
+                _cariService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
             }
-            foreach (var item in cariAdres)
+            foreach (var item in cariVM.Adres)
             {
-                _adresService.Add(new Adres { AdresAcıklama = item, AdresId = id });
+                _adresService.Add(new Adres { AdresAcıklama = item, AdresId = cariVM.CariId });
             }
 
             return RedirectToAction("Index", "Kullanici");
