@@ -112,27 +112,21 @@ namespace UI.Controllers
             {
                 foreach (var item in phone)
                 {
-                    _telefonService.Delete(new Telefon { TelefonId = item });
-                }
-            }
-            if (address != null)
-            {
-                foreach (var item in address)
-                {
-                    _adresService.Delete(new Adres { AdresId = item });
+                     _adresService.Delete(new Adres { AdresId = item });
                 }
 
             }
             var name = _cariService.Get(i => i.CariId == cariVM.CariId);         
             name.Unvan = cariVM.Unvan;
             _cariService.Update(name);
+
             foreach (var item in cariVM.telefons)
             {
                 _cariService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
             }
             foreach (var item in cariVM.Adres)
             {
-                _adresService.Add(new Adres { AdresAcıklama = item, AdresId = cariVM.CariId });
+                _adresService.Add(new Adres { AdresAcıklama = item, CariId = cariVM.CariId });
             }
 
             return RedirectToAction("Index", "Kullanici");

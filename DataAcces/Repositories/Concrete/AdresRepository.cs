@@ -29,7 +29,7 @@ namespace DataAcces.Repositories.Concrete
             _context.SaveChanges();
         }
 
-        public IEnumerable<Adres> GetList(Expression<Func<Adres, bool>> filter)
+        public List<Adres> GetList(Expression<Func<Adres, bool>> filter)
         {
             return _context.Adres.Where(filter).ToList();
         }

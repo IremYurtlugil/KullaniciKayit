@@ -1,5 +1,6 @@
 ﻿using DataAcces.Repositories.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,15 @@ namespace DataAcces.Repositories.Concrete
 
         public void Delete(Telefon telefon)
         {
-            _context.Telefon.Remove(telefon);
+            var updateDelete = _context.Entry(telefon);
+            updateDelete.State = EntityState.Modified;
             _context.SaveChanges();
+            //_context.Telefon.Remove(telefon);
+            //_context.SaveChanges();
 
         }
 
-        public IEnumerable<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)
+        public List<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)
         {
             return _context.Telefon.Where(filter).ToList();
         }

@@ -27,7 +27,7 @@ namespace Business.Services.Concrete
             _adresRepository.Delete(adres);
         }
 
-        public IEnumerable<Adres> GetList(Expression<Func<Adres, bool>> filter = null)
+        public List<Adres> GetList(Expression<Func<Adres, bool>> filter = null)
         {
             return _adresRepository.GetList(filter);
         }

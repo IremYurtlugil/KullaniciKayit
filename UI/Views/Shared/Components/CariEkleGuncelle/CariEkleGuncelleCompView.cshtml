@@ -52,6 +52,7 @@
 
 
     $("#addTelefonInput").click(function () {
+        debugger;
         $("#addTel")
             .append('<tr><th><input type="text" placeholder="add phone" class="form-control phonenumber"></th><th><button  class="btn btn-sm btn-danger deletetel">x</button></th></tr>');
     });
@@ -74,6 +75,7 @@
     var address = [];
 
     var getdatas = function (id) {
+        debugger;
         var phonetable = $("#tel");
 
         var addresstable = $("#address");
@@ -81,6 +83,7 @@
         var cariıd = id;
 
         var getphones = function () {
+            debugger;
             $.ajax({
                 url: "/Kullanici/GetTelNo",
                 type: 'get',
@@ -103,7 +106,8 @@
             });
         };
 
-        var getaddress = function () {           
+        var getaddress = function () {
+            debugger;
             $.ajax({
                 url: "/Kullanici/GetAdres",
                 type: 'get',
@@ -139,6 +143,7 @@
         });
 
         $('input[type="text"].address').each(function () {
+            debugger;
             address.push($(this).val());
         });
         var unvan = $("#unvan").val();

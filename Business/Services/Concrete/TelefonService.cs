@@ -29,7 +29,7 @@ namespace Business.Services.Concrete
            _telRepository.Delete(telefon);
         }
 
-        public IEnumerable<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)
+        public List<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)
         {
             return _telRepository.GetList(filter);
         }

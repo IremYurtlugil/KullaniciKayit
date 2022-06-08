@@ -61,7 +61,7 @@
 
                 <div class="row"><p></p></div>
                 <table>
-                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
+                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="document.location.onload(listele())">Cari Listele</button></td></tr>
                     <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
 
                     <tr>
@@ -216,8 +216,8 @@
 
                         <table>
                             <tr>
-                                <td><a href="/kullanici/delete/@cariVM.CariId" class="btn btn-dark btn-group-sm ">Sil</a></td>
-                                <td><button type="button" class="btn btn-dark btn-group-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
+                                <td><a href="/kullanici/delete/@cariVM.CariId" class="btn btn-dark btn-sm ">Sil</a></td>
+                                <td><button type="button" class="btn btn-dark btn-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
 
                             </tr>
                         </table>
@@ -302,7 +302,9 @@
                 error: function (error) {
                     console.log(error.Message);
                 },
-            });
+         });
+        
+     
     }
 
 
@@ -361,6 +363,8 @@
             }
         })
     }
+
+
 </script>
 
 
