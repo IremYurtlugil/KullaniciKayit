@@ -26,13 +26,16 @@ namespace DataAcces.Repositories.Concrete
         }
 
         public void Delete(Telefon telefon)
-        {
-            var updateDelete = _context.Entry(telefon);
-            updateDelete.State = EntityState.Modified;
+          {
+           
+            _context.Telefon.Remove(telefon);
             _context.SaveChanges();
-            //_context.Telefon.Remove(telefon);
-            //_context.SaveChanges();
 
+        }
+
+        public Telefon GetById(Expression<Func<Telefon, bool>> filter)
+        {
+            return _context.Telefon.Where(filter).SingleOrDefault();
         }
 
         public List<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)

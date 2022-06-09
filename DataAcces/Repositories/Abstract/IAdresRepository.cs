@@ -11,5 +11,6 @@ namespace DataAcces.Repositories.Abstract
         List<Adres> GetList(Expression<Func<Adres, bool>> filter);
         void Delete(Adres adres);
         void Add(Adres adres);
+        Adres GetById(Expression<Func<Adres, bool>> filter);
     }
 }

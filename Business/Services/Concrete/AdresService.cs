@@ -27,6 +27,11 @@ namespace Business.Services.Concrete
             _adresRepository.Delete(adres);
         }
 
+        public Adres GetById(Expression<Func<Adres, bool>> filter = null)
+        {
+            return _adresRepository.GetById(filter);
+        }
+
         public List<Adres> GetList(Expression<Func<Adres, bool>> filter = null)
         {
             return _adresRepository.GetList(filter);

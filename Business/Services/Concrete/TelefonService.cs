@@ -29,6 +29,11 @@ namespace Business.Services.Concrete
            _telRepository.Delete(telefon);
         }
 
+        public Telefon GetById(Expression<Func<Telefon, bool>> filter = null)
+        {
+            return _telRepository.GetById(filter);
+        }
+
         public List<Telefon> GetList(Expression<Func<Telefon, bool>> filter = null)
         {
             return _telRepository.GetList(filter);

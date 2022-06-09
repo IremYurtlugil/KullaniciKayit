@@ -11,5 +11,6 @@ namespace Business.Services.Abstract
         List<Adres> GetList(Expression<Func<Adres, bool>> filter = null);
         void Delete(Adres adres);
         void Add(Adres adres);
+        Adres GetById(Expression<Func<Adres, bool>> filter = null);
     }
 }

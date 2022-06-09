@@ -107,12 +107,22 @@ namespace UI.Controllers
         {
            var phone = _telefonService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.TelefonId).ToList();
            var address = _adresService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.AdresId).ToList();
-           
+            var vmTelefonList = cariVM.telefons;
             if (phone != null)
             {
                 foreach (var item in phone)
                 {
-                     _adresService.Delete(new Adres { AdresId = item });
+                    var tel = _telefonService.GetById(w=>w.TelefonId==item);
+                    _telefonService.Delete(tel);
+                }
+
+            }
+            if (address != null)
+            {
+                foreach (var item in address)
+                {
+                    var adr = _adresService.GetById(a =>a.AdresId == item);
+                    _adresService.Delete(adr);
                 }
 
             }
@@ -122,7 +132,7 @@ namespace UI.Controllers
 
             foreach (var item in cariVM.telefons)
             {
-                _cariService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
+                _telefonService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
             }
             foreach (var item in cariVM.Adres)
             {

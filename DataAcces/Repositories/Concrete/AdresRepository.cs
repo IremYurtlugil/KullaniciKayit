@@ -29,6 +29,11 @@ namespace DataAcces.Repositories.Concrete
             _context.SaveChanges();
         }
 
+        public Adres GetById(Expression<Func<Adres, bool>> filter)
+        {
+            return _context.Adres.Where(filter).SingleOrDefault();
+        }
+
         public List<Adres> GetList(Expression<Func<Adres, bool>> filter)
         {
             return _context.Adres.Where(filter).ToList();
