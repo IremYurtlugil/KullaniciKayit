@@ -123,7 +123,7 @@
                     debugger;
                     for (var i = 0; i < loadData.length; i++) {
                         var address = $("#addAddressUpdate");
-                        address.append('<tr><th><input type="text"  class="form-control updateAddress" value="' + loadData[i].AdresAcıklama + '"></th><th><button  class="btn btn-sm btn-danger deleteAddress">x</button></th></tr>');
+                        address.append(`<tr><th><input type="text" id="${loadData[i].AdresId}"   class="form-control updateAddress" value="${loadData[i].AdresAcıklama}"></th><th><button  class="btn btn-sm btn-danger deleteAddress">x</button></th></tr>`);
                     }
                 },
                 error: function (error) {

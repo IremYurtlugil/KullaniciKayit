@@ -36,7 +36,7 @@ namespace UI.Controllers
                 {
                     CariId = cari.CariId,
                     Unvan = cari.Unvan,
-                    telefons = cari.Telefonlar.Select(w=>w.TelefonNo).ToList(),
+                    telefons = cari.Telefonlar.Select(w => w.TelefonNo).ToList(),
                     Adres = cari.Adresler.Select(w => w.AdresAcıklama).ToList()
 
                 };
@@ -95,7 +95,7 @@ namespace UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(long CariId) 
+        public IActionResult Update(long CariId)
         {
             Cari cari = _cariService.Get(i => i.CariId == CariId);
 
@@ -125,8 +125,7 @@ namespace UI.Controllers
                     _adresService.Delete(adr);
                 }
 
-            }
-            var name = _cariService.Get(i => i.CariId == cariVM.CariId);         
+            var name = _cariService.Get(i => i.CariId == cariVM.CariId);
             name.Unvan = cariVM.Unvan;
             _cariService.Update(name);
 
@@ -142,13 +141,13 @@ namespace UI.Controllers
             return RedirectToAction("Index", "Kullanici");
         }
 
-        public JsonResult GetTelNo(long id) 
+        public JsonResult GetTelNo(long id)
         {
             var phones = _telefonService.GetList(a => a.CariId == id).ToList();
             return Json(phones);
         }
 
-        public JsonResult GetAdres(long id) 
+        public JsonResult GetAdres(long id)
         {
             var address = _adresService.GetList(a => a.CariId == id).ToList();
             return Json(address);
@@ -156,9 +155,9 @@ namespace UI.Controllers
 
         [HttpPost]
 
-        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres) 
+        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres)
         {
-            _cariService.Add(new Cari { Unvan=unvan });
+            _cariService.Add(new Cari { Unvan = unvan });
             var cari = _cariService.Get(a => a.Unvan == unvan);
             foreach (var item in cariAdres)
             {
@@ -170,9 +169,9 @@ namespace UI.Controllers
             }
             return Ok();
         }
-        
-       
+
+
 
     }
 }
- 
+
