@@ -1,9 +1,13 @@
 ﻿using Business.Services.Abstract;
+using DataAcces;
+using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using UI.Models;
 using ViewModels.KullaniciVM;
@@ -18,15 +22,28 @@ namespace UI.Controllers
         {
             _kullaniciService = kullaniciService;
         }
+        KKContext context = new KKContext();
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult Login(string password, string email)
+        public IActionResult Login(Kullanici k)
         {
-            var cari = _kullaniciService.CheckLogin(new LoginVM() { Password = password, Email = email });
+            var bilgi = context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
+            if (bilgi != null)
+            {
+                var claims = new List<Claim>
+                {
+                 new Claim(ClaimTypes.Email,k.Email)
+                };
+                var useridentity = new ClaimsIdentity(claims, "Login");
+                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                return RedirectToAction("Index", "Kullanici");
+            }
             return View();
         }
 

@@ -3,6 +3,7 @@ using Business.Services.Concrete;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace UI.Controllers
             _adresService = adresService;
             _telefonService = telefonService;
         }
-        [HttpGet]
+
         public IActionResult Index()
         {
             List<Cari> CariList = _cariService.GetListCari();
@@ -105,14 +106,14 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult Update(CariVM cariVM)
         {
-           var phone = _telefonService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.TelefonId).ToList();
-           var address = _adresService.GetList(i => i.CariId == cariVM.CariId).Select(i=>i.AdresId).ToList();
+            var phone = _telefonService.GetList(i => i.CariId == cariVM.CariId).Select(i => i.TelefonId).ToList();
+            var address = _adresService.GetList(i => i.CariId == cariVM.CariId).Select(i => i.AdresId).ToList();
             var vmTelefonList = cariVM.telefons;
             if (phone != null)
             {
                 foreach (var item in phone)
                 {
-                    var tel = _telefonService.GetById(w=>w.TelefonId==item);
+                    var tel = _telefonService.GetById(w => w.TelefonId == item);
                     _telefonService.Delete(tel);
                 }
 
@@ -121,57 +122,58 @@ namespace UI.Controllers
             {
                 foreach (var item in address)
                 {
-                    var adr = _adresService.GetById(a =>a.AdresId == item);
+                    var adr = _adresService.GetById(a => a.AdresId == item);
                     _adresService.Delete(adr);
                 }
 
-            var name = _cariService.Get(i => i.CariId == cariVM.CariId);
-            name.Unvan = cariVM.Unvan;
-            _cariService.Update(name);
+                var name = _cariService.Get(i => i.CariId == cariVM.CariId);
+                name.Unvan = cariVM.Unvan;
+                _cariService.Update(name);
 
-            foreach (var item in cariVM.telefons)
-            {
-                _telefonService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
-            }
-            foreach (var item in cariVM.Adres)
-            {
-                _adresService.Add(new Adres { AdresAcıklama = item, CariId = cariVM.CariId });
-            }
+                foreach (var item in cariVM.telefons)
+                {
+                    _telefonService.Add(new Telefon { TelefonNo = item, CariId = cariVM.CariId });
+                }
+                foreach (var item in cariVM.Adres)
+                {
+                    _adresService.Add(new Adres { AdresAcıklama = item, CariId = cariVM.CariId });
+                }
 
+                
+            }
             return RedirectToAction("Index", "Kullanici");
         }
-
-        public JsonResult GetTelNo(long id)
-        {
-            var phones = _telefonService.GetList(a => a.CariId == id).ToList();
-            return Json(phones);
-        }
-
-        public JsonResult GetAdres(long id)
-        {
-            var address = _adresService.GetList(a => a.CariId == id).ToList();
-            return Json(address);
-        }
-
-        [HttpPost]
-
-        public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres)
-        {
-            _cariService.Add(new Cari { Unvan = unvan });
-            var cari = _cariService.Get(a => a.Unvan == unvan);
-            foreach (var item in cariAdres)
+            public JsonResult GetTelNo(long id)
             {
-                _adresService.Add(new Adres { AdresAcıklama = item, CariId = cari.CariId });
+                var phones = _telefonService.GetList(a => a.CariId == id).ToList();
+                return Json(phones);
             }
-            foreach (var item in cariTel)
+
+            public JsonResult GetAdres(long id)
             {
-                _telefonService.Add(new Telefon { TelefonNo = item, CariId = cari.CariId });
+                var address = _adresService.GetList(a => a.CariId == id).ToList();
+                return Json(address);
             }
-            return Ok();
+
+            [HttpPost]
+
+            public IActionResult AddTel(string unvan, List<string> cariTel, List<string> cariAdres)
+            {
+                _cariService.Add(new Cari { Unvan = unvan });
+                var cari = _cariService.Get(a => a.Unvan == unvan);
+                foreach (var item in cariAdres)
+                {
+                    _adresService.Add(new Adres { AdresAcıklama = item, CariId = cari.CariId });
+                }
+                foreach (var item in cariTel)
+                {
+                    _telefonService.Add(new Telefon { TelefonNo = item, CariId = cari.CariId });
+                }
+                return Ok();
+            }
+
+
+
         }
-
-
-
     }
-}
 

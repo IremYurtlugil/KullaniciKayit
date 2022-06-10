@@ -14,7 +14,7 @@ namespace DataAcces
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString: "Server=(localdb)\\MsSqlLocalDb;Database=KullaniciKaydi;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(connectionString: "Server=.\\SQLEXPRESS;Database=kullanicikaydi;User Id=sa;Password=ilke001;");
         }
        
         public DbSet<Kullanici> Kullanici { get; set; }
