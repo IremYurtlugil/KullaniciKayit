@@ -14,6 +14,7 @@ using ViewModels.KullaniciVM;
 
 namespace UI.Controllers
 {
+
     public class HomeController : Controller
     {
         public readonly IKullaniciService _kullaniciService;
@@ -23,50 +24,67 @@ namespace UI.Controllers
             _kullaniciService = kullaniciService;
         }
         KKContext context = new KKContext();
-
-        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
-
-        [HttpGet]
-        public IActionResult Login(Kullanici k)
+        [HttpPost]
+        public IActionResult Index(Kullanici k)
         {
-            var bilgi = context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
+           var bilgi = context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
             if (bilgi != null)
             {
-                var claims = new List<Claim>
-                {
-                 new Claim(ClaimTypes.Email,k.Email)
-                };
-                var useridentity = new ClaimsIdentity(claims, "Login");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                HttpContext.Session.SetJson("bilgi", bilgi);
                 return RedirectToAction("Index", "Kullanici");
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(LoginVM loginVM)
-        {
-            if (ModelState.IsValid)
-            {
-                var kullanici = _kullaniciService.CheckLogin(loginVM);
-                if (kullanici != null)
-                {
-                    return RedirectToAction("Index", "Kullanici");
-                }
-                else
-                {
-                    return View(nameof(Index));
-                }
             }
             else
             {
-                return View();
+                TempData["Error"] = "Error";
+                return RedirectToAction("Index", "Home");
             }
+
+            //Kullanici kullanici = HttpContext.Session.GetJson<Kullanici>("kullanici");
+            //TempData["KullaniciName"] = kullanici.Name;
+            //return View();
         }
+
+        //[HttpGet]
+        //public IActionResult Login(Kullanici k)
+        //{
+        //    var bilgi = context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
+        //    if (bilgi != null)
+        //    {
+        //        HttpContext.Session.SetJson("kullanici", k);              
+        //        return RedirectToAction("Index", "Kullanici");
+        //    }
+        //    else
+        //    {
+        //        TempData["Error"] = "Error";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+           
+        //}
+
+        //[HttpPost]
+        //public IActionResult Login(LoginVM loginVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var kullanici = _kullaniciService.CheckLogin(loginVM);
+        //        if (kullanici != null)
+        //        {
+        //            return RedirectToAction("Index", "Kullanici");
+        //        }
+        //        else
+        //        {
+        //            return View(nameof(Index));
+        //        }
+        //    }
+            //else
+            //{
+            //    return View();
+            //}
+        //}
 
 
     }

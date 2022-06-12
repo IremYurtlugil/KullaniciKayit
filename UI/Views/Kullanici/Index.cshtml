@@ -1,5 +1,8 @@
 ﻿@model List<CariVM>
-
+@{
+    ViewData["Title"] = "Index";
+  
+}
 <!-- #region  tablo oluşturma  -->
 @*<div class="row mt-5">
         <div class="col-6 offset-3">
@@ -59,9 +62,9 @@
     <div class="row">
         <div class="col-5">
             <div class="col-md-4">
- 
+                <div class="row"><h1>@TempData["KullaniciName"]</h1></div>
                 <div class="row"><p></p></div>
-                <table>              
+                <table>
                     <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
                     <tr><td><button type="button" class="btn btn-dark btn-lg" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
 
@@ -304,8 +307,8 @@
                     console.log(error.Message);
                 },
          });
-        
-     
+
+
     }
 
 

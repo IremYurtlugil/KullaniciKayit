@@ -42,30 +42,14 @@ namespace UI
             services.AddScoped<IAdresRepository, AdresRepository>();
             services.AddScoped<KKContext>();
 
-            services.AddMvc(config =>
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
+                options.IdleTimeout = TimeSpan.FromSeconds(10000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
-
-            services.AddAuthentication
-                (CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(option =>
-                {
-                    option.LoginPath = "/Home/Login/";
-                });
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            //services.ConfigureApplicationCookie(){
-
-            //};
 
 
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -89,8 +73,9 @@ namespace UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-            app.UseAuthentication();
+            app.UseSession();
+
+
 
             app.UseMvc(routes =>
             {

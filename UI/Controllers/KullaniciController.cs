@@ -13,6 +13,7 @@ using ViewModels.CariVM;
 
 namespace UI.Controllers
 {
+    //[TypeFilter(typeof(LoginFilter))]
     public class KullaniciController : Controller
     {
         public readonly ICariService _cariService;
@@ -28,6 +29,9 @@ namespace UI.Controllers
 
         public IActionResult Index()
         {
+            Kullanici kullanici = HttpContext.Session.GetJson<Kullanici>("bilgi");
+           TempData["Name"] = kullanici.Name;
+         
             List<Cari> CariList = _cariService.GetListCari();
             List<CariVM> cariVMs = new List<CariVM>();
             foreach (Cari cari in CariList)
@@ -78,7 +82,7 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult LogOut()
         {
-
+            HttpContext.Session.Remove("kullanici");
             return RedirectToAction("Index", "Home");
         }
 
