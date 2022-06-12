@@ -12,7 +12,7 @@ namespace UI.Controllers
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var userSession = context.HttpContext.Session.GetJson<Kullanici>("kullanici");
+            var userSession = context.HttpContext.Session.GetJson<Kullanici>("bilgi");
             if (userSession == null)
             {
                 Yonlendir(context);
