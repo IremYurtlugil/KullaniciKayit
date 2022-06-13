@@ -1,5 +1,6 @@
 ﻿using Business.Services.Abstract;
 using Business.Services.Concrete;
+using DataAcces;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Entities.Concrete;
@@ -74,11 +75,17 @@ namespace UI.Controllers
             }
             return DataSourceLoader.Load(cariVMs, loadOptions);
         }
-
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            var cari = _cariService.Delete(id);
-            return RedirectToAction("Index", "Kullanici");
+
+            KKContext context = new KKContext();
+            Cari cari = context.Cari.FirstOrDefault(a => a.CariId == id);
+            context.Cari.Remove(cari);
+            context.SaveChanges();
+            //var cari1 = _cariService.Delete(id);
+            return Json(cari);
+            //return RedirectToAction("Index", "Kullanici");
         }
 
 

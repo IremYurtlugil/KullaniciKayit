@@ -1,7 +1,7 @@
 ﻿@model List<CariVM>
 @{
     ViewData["Title"] = "Index";
-  
+
 }
 <!-- #region  tablo oluşturma  -->
 @*<div class="row mt-5">
@@ -220,7 +220,7 @@
 
                         <table>
                             <tr>
-                                <td><a href="/kullanici/delete/@cariVM.CariId" class="btn btn-dark btn-sm ">Sil</a></td>
+                                <td><a href="#" class="Sil" name=" @cariVM.CariId">Sil</a></td>
                                 <td><button type="button" class="btn btn-dark btn-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
 
                             </tr>
@@ -232,7 +232,9 @@
             </div>
         </div>
 
-
+        <div id="wait" style="display:none;width:133px;height:25px;border:0 solid black;position:absolute;top:50%;left:50%;padding:2px;text-align:center;">
+            <img src="~/Content/IslemYapiliyor.gif" /><br>İşleniyor...
+        </div>
 
 
     </div>
@@ -269,6 +271,31 @@
 
 
     }
+   $(document).ready(function () {
+       $(".Sil").click(function () {
+           //Herhangi bir satırdaki <a..> </a> tagı tıklandığı zaman tetiklenecek olan metotdur.
+           if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
+               var ID = $(this).attr('name');
+               //Tıklanan ilgili linkin name özelliğindeki ID değerini çekiyoruz.
+               $.ajax({
+                   url: '/Kullanici/Delete/' + ID,//Ajax ile tetiklenecek ilgili adresi belirliyoruz.
+                   type: 'POST',
+                   dataType: 'json',
+                   success: function (data) {
+                       $("#cariDatagrid").html(data);
+                       //Gelen Json veriyi ilgili taga yerleştiriyoruz.
+                   }
+               });
+               $(this).parent('td').parent('td').remove();
+           }
+       });
+       $(document).ajaxStart(function () {
+           $("#wait").css("display", "block");
+       });
+       $(document).ajaxComplete(function () {
+           $("#wait").css("display", "none");
+       });
+   });
 
 
         function eklemepopupacma() {
