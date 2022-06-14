@@ -161,7 +161,8 @@
                     "Adres": address
                 },
                 success: function () {
-                    alert("ok");
+                        $("#cariDatagrid").dxDataGrid("instance").refresh();
+                    $("#buton").load(location.href + " #buton");
                 },
                 error: function (error) {
                     console.log(error.message);

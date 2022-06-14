@@ -33,8 +33,8 @@ namespace UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddDbContext<KKContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:MiniDukkanConnection"]));
+          
+            services.AddDbContext<KKContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("KullaniciKayitConnection")));
 
 
             services.AddScoped<IKullaniciService, KullaniciService>();

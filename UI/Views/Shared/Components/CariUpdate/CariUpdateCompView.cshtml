@@ -167,7 +167,7 @@
                     "Adres": addressUp
                 },
                 success: function () {
-                    alert("OK");
+                   $("#cariDatagrid").dxDataGrid("instance").refresh();
                 },
                 error: function (error) {
                     console.log(error.Message);

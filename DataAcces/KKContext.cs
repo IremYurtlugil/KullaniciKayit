@@ -10,7 +10,7 @@ namespace DataAcces
     
     public class KKContext : DbContext
     {
-        public KKContext(DbContextOptions<KKContext> options)
+        public KKContext(DbContextOptions<KKContext> options) : base(options)
         {
 
         }

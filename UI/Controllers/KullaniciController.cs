@@ -20,12 +20,14 @@ namespace UI.Controllers
         public readonly ICariService _cariService;
         IAdresService _adresService;
         ITelefonService _telefonService;
+        KKContext _context;
 
-        public KullaniciController(ICariService cariService, IAdresService adresService, ITelefonService telefonService)
+        public KullaniciController(ICariService cariService, IAdresService adresService, ITelefonService telefonService, KKContext context)
         {
             _cariService = cariService;
             _adresService = adresService;
             _telefonService = telefonService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -79,10 +81,10 @@ namespace UI.Controllers
         public JsonResult Delete(int id)
         {
 
-            KKContext context = new KKContext();
-            Cari cari = context.Cari.FirstOrDefault(a => a.CariId == id);
-            context.Cari.Remove(cari);
-            context.SaveChanges();
+          
+            Cari cari = _context.Cari.FirstOrDefault(a => a.CariId == id);
+            _context.Cari.Remove(cari);
+            _context.SaveChanges();
             //var cari1 = _cariService.Delete(id);
             return Json(cari);
             //return RedirectToAction("Index", "Kullanici");

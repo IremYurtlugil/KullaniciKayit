@@ -57,12 +57,20 @@
     }*@
 
 <!-- #endregion -->
+<head>
+    <style>
+        .Sil {
+            btn-sm
+        }
+    </style>
+    
+</head>
 
 <div class="container">
     <div class="row">
         <div class="col-5">
             <div class="col-md-4">
-                <div class="row"><h1>@TempData["KullaniciName"]</h1></div>
+                <div class="row"><h1>@TempData["Name"]</h1></div>
                 <div class="row"><p></p></div>
                 <table>
                     <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
@@ -82,7 +90,7 @@
             </div>
         </div>
         <div class="col-7">
-            <div class="row" id="carilistele" style="visibility:hidden">
+            <div class="row" id="carilistele" >
                 <div class="col-6 ">
                     <!-- #region ilk grid işlemi -->
                     @*@foreach (var cariliste in Model)
@@ -214,13 +222,13 @@
                 <br />
                 <br />
 
-                <div class="col-6">
+                <div class="col-6" id="buton">
                     @foreach (CariVM cariVM in Model)
                     {
 
                         <table>
                             <tr>
-                                <td><a href="#" class="Sil" name=" @cariVM.CariId">Sil</a></td>
+                                <td><a href="#" class="Sil"  name=" @cariVM.CariId">Sil</a></td>
                                 <td><button type="button" class="btn btn-dark btn-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
 
                             </tr>
@@ -232,9 +240,7 @@
             </div>
         </div>
 
-        <div id="wait" style="display:none;width:133px;height:25px;border:0 solid black;position:absolute;top:50%;left:50%;padding:2px;text-align:center;">
-            <img src="~/Content/IslemYapiliyor.gif" /><br>İşleniyor...
-        </div>
+        
 
 
     </div>
@@ -264,37 +270,37 @@
 
 <script>
 
-     function listele() {
 
-            var divId = $("#carilistele");
-            divId.css("visibility", "visible");
+    function listele() {
+      
+            //var divId = $("#carilistele");
+            //divId.css("visibility", "visible");   
+                 $("#cariDatagrid").dxDataGrid("instance").refresh();  
 
 
     }
+
+
    $(document).ready(function () {
        $(".Sil").click(function () {
-           //Herhangi bir satırdaki <a..> </a> tagı tıklandığı zaman tetiklenecek olan metotdur.
+       
            if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
                var ID = $(this).attr('name');
-               //Tıklanan ilgili linkin name özelliğindeki ID değerini çekiyoruz.
+           
                $.ajax({
-                   url: '/Kullanici/Delete/' + ID,//Ajax ile tetiklenecek ilgili adresi belirliyoruz.
+                   url: '/Kullanici/Delete/' + ID,                   
                    type: 'POST',
                    dataType: 'json',
                    success: function (data) {
-                       $("#cariDatagrid").html(data);
-                       //Gelen Json veriyi ilgili taga yerleştiriyoruz.
+                       $(this).parent('td').parent('td').remove();
+                         $("#buton").load(location.href + " #buton");
+                       $("#cariDatagrid").dxDataGrid("instance").refresh();                    
                    }
-               });
-               $(this).parent('td').parent('td').remove();
+               });              
            }
+           
        });
-       $(document).ajaxStart(function () {
-           $("#wait").css("display", "block");
-       });
-       $(document).ajaxComplete(function () {
-           $("#wait").css("display", "none");
-       });
+    
    });
 
 
@@ -328,7 +334,8 @@
                  debugger;
 
                     popup.show();
-                    $("#cariupdatediv").html(data);
+                 $("#cariupdatediv").html(data);
+                       
                 },
                 error: function (error) {
                     console.log(error.Message);
@@ -395,59 +402,7 @@
         })
     }
 
-
+     $(document).ready(listele()) 
 </script>
 
 
-<!-- #region   script -->
-@*<script>
-
-        var numbers = [];
-
-        var Address = [];
-
-            var getDatas = function (id) {
-
-            var phoneTable = $("#tel");
-
-            var addressTable = $("#address");
-
-            var CariId = id;
-
-
-
-            var getAddress = function () {
-                $.ajax({
-                    url: "/Kullanici/GetAdres",
-                    type: 'GET',
-                    dataType: 'json',
-                    beforeSend: function () {
-                        addressTable.html("");
-                    },
-                    data: {
-                        "id": CariId
-                    },
-                    success: function (loadData) {
-                        for (var i = 0; i < loadData.length; i++) {
-                            var address = $("#address");
-                            address.append("<tr><td>" + loadData[i].address + "</td></tr>");
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error.Message);
-                    },
-                });
-            };
-
-            getAddress();
-            getPhones();
-        };
-
-
-
-
-
-    </script>*@
-
-
-<!-- #endregion -->

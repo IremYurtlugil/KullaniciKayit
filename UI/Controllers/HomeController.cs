@@ -18,12 +18,15 @@ namespace UI.Controllers
     public class HomeController : Controller
     {
         public readonly IKullaniciService _kullaniciService;
+        KKContext _context;
 
-        public HomeController(IKullaniciService kullaniciService)
+        public HomeController(IKullaniciService kullaniciService, KKContext context)
         {
             _kullaniciService = kullaniciService;
+            _context = context;
         }
-        KKContext context = new KKContext();
+        
+
         public IActionResult Index()
         {
             return View();
@@ -31,7 +34,8 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult Index(Kullanici k)
         {
-           var bilgi = context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
+            
+            var bilgi = _context.Kullanici.FirstOrDefault(a => a.Email == k.Email && a.Password == k.Password);
             if (bilgi != null)
             {
                 HttpContext.Session.SetJson("bilgi", bilgi);
