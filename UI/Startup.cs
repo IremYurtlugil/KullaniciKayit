@@ -34,7 +34,7 @@ namespace UI
         public void ConfigureServices(IServiceCollection services)
         {
           
-            services.AddDbContext<KKContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("KullaniciKayitConnection")));
+            services.AddDbContext<KKContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("KullaniciKayitConnection2")));
 
 
             services.AddScoped<IKullaniciService, KullaniciService>();
