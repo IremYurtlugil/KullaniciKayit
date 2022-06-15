@@ -46,6 +46,8 @@ namespace UI
             services.AddScoped<IAdresService, AdresService>();
             services.AddScoped<IAdresRepository, AdresRepository>();
             services.AddScoped<KKContext>();
+            services.AddScoped<IKurVeriService, KurVeriService>();
+            services.AddScoped<IKurVeriRepository, KurVeriRepository>();
 
             services.AddDistributedMemoryCache();
 

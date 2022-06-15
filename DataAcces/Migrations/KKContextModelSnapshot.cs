@@ -73,6 +73,31 @@ namespace DataAcces.Migrations
                     b.ToTable("Kullanici");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.KurVeri", b =>
+                {
+                    b.Property<int>("KurId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Birim");
+
+                    b.Property<string>("DovizAlis");
+
+                    b.Property<string>("DovizCinsi");
+
+                    b.Property<string>("DovizKodu");
+
+                    b.Property<string>("DovizSatis");
+
+                    b.Property<string>("EfektifAlıs");
+
+                    b.Property<string>("EfektifSatis");
+
+                    b.HasKey("KurId");
+
+                    b.ToTable("KurVeris");
+                });
+
             modelBuilder.Entity("Entities.Concrete.Telefon", b =>
                 {
                     b.Property<long>("TelefonId")

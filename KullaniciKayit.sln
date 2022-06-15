@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{F7F08275-6059-4A46-9842-1B2FEBA32437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{4AAF6575-D7E1-4918-AFB9-424AE5D68AB4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{66936DBF-BAC8-45E2-8CDE-99735600D8C6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,14 +39,6 @@ Global
 		{F7F08275-6059-4A46-9842-1B2FEBA32437}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7F08275-6059-4A46-9842-1B2FEBA32437}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7F08275-6059-4A46-9842-1B2FEBA32437}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AAF6575-D7E1-4918-AFB9-424AE5D68AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AAF6575-D7E1-4918-AFB9-424AE5D68AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AAF6575-D7E1-4918-AFB9-424AE5D68AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AAF6575-D7E1-4918-AFB9-424AE5D68AB4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66936DBF-BAC8-45E2-8CDE-99735600D8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66936DBF-BAC8-45E2-8CDE-99735600D8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66936DBF-BAC8-45E2-8CDE-99735600D8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66936DBF-BAC8-45E2-8CDE-99735600D8C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

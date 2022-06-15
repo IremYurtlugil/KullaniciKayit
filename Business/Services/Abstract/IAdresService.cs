@@ -12,5 +12,6 @@ namespace Business.Services.Abstract
         void Delete(Adres adres);
         void Add(Adres adres);
         Adres GetById(Expression<Func<Adres, bool>> filter = null);
+       
     }
 }

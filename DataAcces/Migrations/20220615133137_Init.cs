@@ -37,6 +37,25 @@ namespace DataAcces.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "KurVeris",
+                columns: table => new
+                {
+                    KurId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Birim = table.Column<int>(nullable: false),
+                    DovizKodu = table.Column<string>(nullable: true),
+                    DovizCinsi = table.Column<string>(nullable: true),
+                    DovizAlis = table.Column<string>(nullable: true),
+                    DovizSatis = table.Column<string>(nullable: true),
+                    EfektifAlıs = table.Column<string>(nullable: true),
+                    EfektifSatis = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KurVeris", x => x.KurId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Adres",
                 columns: table => new
                 {
@@ -94,6 +113,9 @@ namespace DataAcces.Migrations
 
             migrationBuilder.DropTable(
                 name: "Kullanici");
+
+            migrationBuilder.DropTable(
+                name: "KurVeris");
 
             migrationBuilder.DropTable(
                 name: "Telefon");

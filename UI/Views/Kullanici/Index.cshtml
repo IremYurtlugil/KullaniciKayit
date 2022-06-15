@@ -57,14 +57,7 @@
     }*@
 
 <!-- #endregion -->
-<head>
-    <style>
-        .Sil {
-            btn-sm
-        }
-    </style>
-    
-</head>
+
 
 <div class="container">
     <div class="row">
@@ -74,7 +67,7 @@
                 <div class="row"><p></p></div>
                 <table>
                     <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
-                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="">Döviz Kurlarını Görüntüle</button></td></tr>
+                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="getData()">Döviz Kurlarını Görüntüle</button></td></tr>
 
                     <tr>
                         <td>
@@ -338,7 +331,27 @@
         })
     }
 
-     $(document).ready(listele()) 
+    $(document).ready(listele())
+
+   
+    function getData() {
+      
+        $.ajax({
+            url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
+            type: 'Get',
+            dataType: "xml",
+            crossDomain: true,
+            headers: {
+                      "Access-Control-Allow-Headers":"*",
+                      "Access-Control-Allow-Origin":"*"
+                  },
+            success: function (data) {
+                console.log(data)
+            }
+
+        })
+
+    }
 </script>
 
 
