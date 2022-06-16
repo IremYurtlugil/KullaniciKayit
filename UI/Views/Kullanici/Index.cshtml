@@ -67,7 +67,7 @@
                 <div class="row"><p></p></div>
                 <table>
                     <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="listele()">Cari Listele</button></td></tr>
-                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="getData()">Döviz Kurlarını Görüntüle</button></td></tr>
+                    <tr><td><button type="button" class="btn btn-dark btn-lg " onclick="getData()">Kur Görüntüle</button></td></tr>
 
                     <tr>
                         <td>
@@ -83,9 +83,9 @@
             </div>
         </div>
         <div class="col-7">
-            <div class="row" id="carilistele" >
+            <div class="row" id="carilistele">
                 <div class="col-6 ">
-                 <tr><td><button type="button" class="btn btn-dark bs-tooltip-auto" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
+                    <tr><td><button type="button" class="btn btn-dark bs-tooltip-auto" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
                     @(Html.DevExtreme().DataGrid<CariVM>()
                 .ID("cariDatagrid")
                 .DataSource(ds=>ds.Mvc().Controller("Kullanici").LoadAction("LoadList").Key("CariId"))
@@ -157,7 +157,7 @@
 
                         <table>
                             <tr>
-                                <td><a href="#" class="Sil"  name=" @cariVM.CariId">Sil</a></td>
+                                <td><a href="#" class="Sil" name=" @cariVM.CariId">Sil</a></td>
                                 <td><button type="button" class="btn btn-dark btn-sm" onclick="update(@cariVM.CariId)">Güncelle</button></td>
 
                             </tr>
@@ -169,11 +169,23 @@
             </div>
         </div>
 
-        
+
 
 
     </div>
 </div>
+<div id="ahadaveri">
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+</div>
+
 @(Html.DevExtreme().Popup().ID("cariekleguncelle")
 
       .ContentTemplate(new TemplateName("carieklegucelleteplate")))
@@ -201,10 +213,10 @@
 
 
     function listele() {
-      
+
             //var divId = $("#carilistele");
-            //divId.css("visibility", "visible");   
-                 $("#cariDatagrid").dxDataGrid("instance").refresh();  
+            //divId.css("visibility", "visible");
+                 $("#cariDatagrid").dxDataGrid("instance").refresh();
 
 
     }
@@ -212,28 +224,28 @@
 
    $(document).ready(function () {
        $(".Sil").click(function () {
-       
+
            if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
                var ID = $(this).attr('name');
-           
+
                $.ajax({
-                   url: '/Kullanici/Delete/' + ID,                   
+                   url: '/Kullanici/Delete/' + ID,
                    type: 'POST',
                    dataType: 'json',
                    success: function (data) {
                        $(this).parent('td').parent('td').remove();
                          $("#buton").load(location.href + " #buton");
-                       $("#cariDatagrid").dxDataGrid("instance").refresh();                    
+                       $("#cariDatagrid").dxDataGrid("instance").refresh();
                    }
-               });              
+               });
            }
-           
+
        });
-    
+
    });
 
 
-        function eklemepopupacma() {
+    function eklemepopupacma() {
             /*var url = "/Kullanici/CariEkle";*/
 
             var url = '@Url.Action("CariEkleComp", "Kullanici")';
@@ -264,7 +276,7 @@
 
                     popup.show();
                  $("#cariupdatediv").html(data);
-                       
+
                 },
                 error: function (error) {
                     console.log(error.Message);
@@ -333,23 +345,45 @@
 
     $(document).ready(listele())
 
-   
+
     function getData() {
-      
+
         $.ajax({
             url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
-            type: 'Get',
-            dataType: "xml",
+            type: 'GET',
+            contentType: "text",
             crossDomain: true,
-            headers: {
-                      "Access-Control-Allow-Headers":"*",
-                      "Access-Control-Allow-Origin":"*"
-                  },
-            success: function (data) {
-                console.log(data)
-            }
 
-        })
+            success: function (data) {
+
+                var dj = JsonConvert.DeserializeXmlNode(data)
+                
+               // debugger;
+
+                //var d = $.parseXML(data.all);
+                var tarihSaat = $(dj).find("Tarih_Date");
+                var cur = $(tarihSaat).find("Currency");
+
+                $(cur).each(function (i, item) {
+                  //  debugger;
+                    var isim = $(item).find("CurrencyName").text();
+                    var dovizAlis = $(item).find("ForexBuying").text();
+                    var dovizSatis = $(item).find("ForexSelling").text();
+                    var efektifAlis = $(item).find("BanknoteBuying").text();
+                    var efektifAlis = $(item).find("BanknoteSelling").text();
+
+                    
+                    $("#ahadaveri").append("<p>" + isim);
+                    $("#ahadaveri").append("<p>" + dovizAlis);
+                    $("#ahadaveri").append("<p>" + dovizSatis);
+                    $("#ahadaveri").append("<p>" + efektifAlis);
+                    $("#ahadaveri").append("<p>" + efektifAlis);
+
+                   
+                })
+            }
+        });
+
 
     }
 </script>
