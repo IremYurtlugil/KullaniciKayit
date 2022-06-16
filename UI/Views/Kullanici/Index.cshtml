@@ -175,15 +175,20 @@
     </div>
 </div>
 <div id="ahadaveri">
-    <table>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </table>
+   @(Html.DevExtreme().DataGrid()
+    .ID("gridContainer")
+    .ShowBorders(true)
+    .DataSource(new JS("getData()")))
+    .KeyExpr("ID")
+    .Columns(c => {
+        c.Add().DataField("CurrencyName");
+        c.Add().DataField("ForexBuying");
+        c.Add().DataField("ForexSelling");
+        c.Add().DataField("BanknoteBuying");
+        c.Add().DataField("BanknoteSelling");
+    })
+)
+
 </div>
 
 @(Html.DevExtreme().Popup().ID("cariekleguncelle")
@@ -354,9 +359,7 @@
             contentType: "text",
             crossDomain: true,
 
-            success: function (data) {
-
-                var dj = JsonConvert.DeserializeXmlNode(data)
+            success: function (data) {               
                 
                // debugger;
 
