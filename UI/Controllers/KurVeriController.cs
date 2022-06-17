@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Services.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -12,17 +13,13 @@ namespace UI.Controllers
 {
     public class KurVeriController : Controller
     {
+        public readonly IKurVeriService _kurVeriService;
 
-        //public ActionResult Index()
-        //{      
-        //    List<KurVeri> KurList = null;
-        //    string exchangeRate = "https://www.tcmb.gov.tr/kurlar/today.xml";
+        public JsonResult Index(int id)
+        {
+            var kurVeri = _kurVeriService.GetList(a => a.KurId == id).ToList();
+            return Json(kurVeri);
 
-        //    var xmlDoc = new XmlDocument();
-        //    xmlDoc.Load(exchangeRate);
-
-         
-
-        //}
+        }
     }
 }

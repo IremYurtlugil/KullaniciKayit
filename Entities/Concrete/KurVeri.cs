@@ -8,11 +8,11 @@ namespace Entities.Concrete
     {
         public int KurId { get; set; }
         public int Birim { get; set; }
-        public string DovizKodu { get; set; }
-        public string  DovizCinsi{ get; set; }
-        public string DovizAlis { get; set; }
-        public string DovizSatis { get; set; }
-        public string EfektifAlıs { get; set; }
-        public string EfektifSatis { get; set; }
+        public decimal DovizKodu { get; set; }
+        public decimal DovizCinsi { get; set; }
+        public decimal DovizAlis { get; set; }
+        public decimal DovizSatis { get; set; }
+        public decimal EfektifAlıs { get; set; }
+        public decimal EfektifSatis { get; set; }
     }
 }

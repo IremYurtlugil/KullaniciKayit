@@ -43,12 +43,12 @@ namespace DataAcces.Migrations
                     KurId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Birim = table.Column<int>(nullable: false),
-                    DovizKodu = table.Column<string>(nullable: true),
-                    DovizCinsi = table.Column<string>(nullable: true),
-                    DovizAlis = table.Column<string>(nullable: true),
-                    DovizSatis = table.Column<string>(nullable: true),
-                    EfektifAlıs = table.Column<string>(nullable: true),
-                    EfektifSatis = table.Column<string>(nullable: true)
+                    DovizKodu = table.Column<decimal>(nullable: false),
+                    DovizCinsi = table.Column<decimal>(nullable: false),
+                    DovizAlis = table.Column<decimal>(nullable: false),
+                    DovizSatis = table.Column<decimal>(nullable: false),
+                    EfektifAlıs = table.Column<decimal>(nullable: false),
+                    EfektifSatis = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

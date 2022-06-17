@@ -3,61 +3,6 @@
     ViewData["Title"] = "Index";
 
 }
-<!-- #region  tablo oluşturma  -->
-@*<div class="row mt-5">
-        <div class="col-6 offset-3">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Firma Adı</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var cari in Model)
-                    {
-                        string targetName = $"#modalCari{cari.CariId}";
-                        <tr id=@cari.CariId data-bs-toggle="modal" data-bs-target=@targetName>
-                            <td>@(Model.IndexOf(cari)+1)</td>
-                            <td>@cari.Unvan</td>
-                        </tr>
-
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-    @foreach (var cari in Model)
-    {
-        string targetName = $"modalCari{cari.CariId}";
-        <div class="modal fade" id=@targetName tabindex="-1" aria-labelledby=@targetName aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title w-100 font-weight-bold">Cari Hesap</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>@cari.Unvan</p>
-                        @foreach (var tel in @cari.telefons)
-                        {
-                            <p>@tel.TelefonNo</p>
-                        }
-                        @foreach (var addr in @cari.Adres)
-                        {
-                            <p>@addr.AdresAcıklama</p>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    }*@
-
-<!-- #endregion -->
-
 
 <div class="container">
     <div class="row">
@@ -82,7 +27,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-7">
+        @*<div class="col-7">
             <div class="row" id="carilistele">
                 <div class="col-6 ">
                     <tr><td><button type="button" class="btn btn-dark bs-tooltip-auto" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
@@ -92,14 +37,6 @@
     .Selection(s => s.Mode(SelectionMode.Single))
     .HoverStateEnabled(true)
     .ShowBorders(true)
-    //.Editing(e=> e.Mode(GridEditMode.Popup)
-    //   .AllowUpdating(true)
-    //   .AllowAdding(true)
-    //   .AllowDeleting(true)
-    //   .Popup(p=>p.Title("Info")
-    //   .ShowTitle(true)
-    //   .Width(700)
-    //   .Height(525)))
 
     .Columns(columns => {
         columns.AddFor(m => m.CariId)
@@ -167,25 +104,27 @@
                     }
                 </div>
             </div>
-        </div>
+        </div>*@
 
 
 
 
     </div>
 </div>
-<div id="ahadaveri">
-   @(Html.DevExtreme().DataGrid()
-    .ID("gridContainer")
+<div>
+    @(Html.DevExtreme().DataGrid()
+    .ID("gridContainerasdasdadssdsdsd")
     .ShowBorders(true)
-    .DataSource(new JS("getData()")))
-    .KeyExpr("ID")
+    // .DataSource(d => d.Array().Data(new JS("list")).Key("CurrencyName"))
+    .DataSource(new JS("list"))
+
     .Columns(c => {
-        c.Add().DataField("CurrencyName");
-        c.Add().DataField("ForexBuying");
-        c.Add().DataField("ForexSelling");
-        c.Add().DataField("BanknoteBuying");
-        c.Add().DataField("BanknoteSelling");
+        c.Add().DataField("Id").Visible(true);
+        c.Add().DataField("DovizCinsi");
+        c.Add().DataField("DovizAlis").Format(Format.Currency);
+        c.Add().DataField("DovizSatis").Format(Format.Currency);
+        c.Add().DataField("EfektifAlıs").Format(Format.Currency);
+        c.Add().DataField("EfektifSatis").Format(Format.Currency);
     })
 )
 
@@ -217,37 +156,39 @@
 <script>
 
 
-    function listele() {
+   // function listele() {
 
-            //var divId = $("#carilistele");
-            //divId.css("visibility", "visible");
-                 $("#cariDatagrid").dxDataGrid("instance").refresh();
-
-
-    }
+   //         //var divId = $("#carilistele");
+   //         //divId.css("visibility", "visible");
+   //              $("#cariDatagrid").dxDataGrid("instance").refresh();
 
 
-   $(document).ready(function () {
-       $(".Sil").click(function () {
+   // }
 
-           if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
-               var ID = $(this).attr('name');
 
-               $.ajax({
-                   url: '/Kullanici/Delete/' + ID,
-                   type: 'POST',
-                   dataType: 'json',
-                   success: function (data) {
-                       $(this).parent('td').parent('td').remove();
-                         $("#buton").load(location.href + " #buton");
-                       $("#cariDatagrid").dxDataGrid("instance").refresh();
-                   }
-               });
-           }
+   //$(document).ready(function () {
+   //    $(".Sil").click(function () {
 
-       });
+   //        if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
+   //            var ID = $(this).attr('name');
 
-   });
+   //            $.ajax({
+   //                url: '/Kullanici/Delete/' + ID,
+   //                type: 'POST',
+   //                dataType: 'json',
+   //                success: function (data) {
+   //                    $(this).parent('td').parent('td').remove();
+   //                      $("#buton").load(location.href + " #buton");
+   //                    $("#cariDatagrid").dxDataGrid("instance").refresh();
+   //                }
+   //            });
+   //        }
+
+   //    });
+
+
+       
+   //});
 
 
     function eklemepopupacma() {
@@ -348,46 +289,47 @@
         })
     }
 
-    $(document).ready(listele())
+   // $(document).ready(listele())
 
-
+    
+    let list = [];
     function getData() {
-
+        
+        
+    
         $.ajax({
             url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
             type: 'GET',
             contentType: "text",
             crossDomain: true,
-
-            success: function (data) {               
-                
-               // debugger;
-
-                //var d = $.parseXML(data.all);
-                var tarihSaat = $(dj).find("Tarih_Date");
+            success: function (data) {
+                debugger;
+                             
+               
+                var tarihSaat = $(data).find("Tarih_Date");
                 var cur = $(tarihSaat).find("Currency");
-
                 $(cur).each(function (i, item) {
-                  //  debugger;
-                    var isim = $(item).find("CurrencyName").text();
-                    var dovizAlis = $(item).find("ForexBuying").text();
-                    var dovizSatis = $(item).find("ForexSelling").text();
-                    var efektifAlis = $(item).find("BanknoteBuying").text();
-                    var efektifAlis = $(item).find("BanknoteSelling").text();
+                    debugger;
+                    var veri = {};
+                    veri.Id = 1;
+                    
+                    veri.DovizCinsi = $(item).find("CurrencyName").text();                    
+                    veri.DovizAlis = $(item).find("ForexBuying").text();
+                    veri.DovizSatis = $(item).find("ForexSelling").text();
+                    veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
+                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();                  
 
                     
-                    $("#ahadaveri").append("<p>" + isim);
-                    $("#ahadaveri").append("<p>" + dovizAlis);
-                    $("#ahadaveri").append("<p>" + dovizSatis);
-                    $("#ahadaveri").append("<p>" + efektifAlis);
-                    $("#ahadaveri").append("<p>" + efektifAlis);
-
-                   
+                 
+                    list.push(veri);
                 })
+                 console.log(list);                
+                $("#gridContainerasdasdadssdsdsd").dxDataGrid("instance").refresh();
+
             }
+
         });
-
-
+        
     }
 </script>
 

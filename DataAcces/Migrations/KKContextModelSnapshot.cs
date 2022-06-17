@@ -81,17 +81,17 @@ namespace DataAcces.Migrations
 
                     b.Property<int>("Birim");
 
-                    b.Property<string>("DovizAlis");
+                    b.Property<decimal>("DovizAlis");
 
-                    b.Property<string>("DovizCinsi");
+                    b.Property<decimal>("DovizCinsi");
 
-                    b.Property<string>("DovizKodu");
+                    b.Property<decimal>("DovizKodu");
 
-                    b.Property<string>("DovizSatis");
+                    b.Property<decimal>("DovizSatis");
 
-                    b.Property<string>("EfektifAlıs");
+                    b.Property<decimal>("EfektifAlıs");
 
-                    b.Property<string>("EfektifSatis");
+                    b.Property<decimal>("EfektifSatis");
 
                     b.HasKey("KurId");
 

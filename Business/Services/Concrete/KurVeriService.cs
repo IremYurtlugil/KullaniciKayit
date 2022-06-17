@@ -1,20 +1,26 @@
 ﻿using Business.Services.Abstract;
+using DataAcces.Repositories.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Xml;
 
 namespace Business.Services.Concrete
 {
-   public class KurVeriService: IKurVeriService
+    public class KurVeriService : IKurVeriService
     {
-        //public void KurVeriAl() 
-        //{
-        //    string exchangeRate = "https://www.tcmb.gov.tr/kurlar/today.xml";
-        //    var xmlDoc = new XmlDocument();
-        //    xmlDoc.Load(exchangeRate);
+        private  IKurVeriRepository _kurVeriRepository;
 
-        //    DateTime tarih = Convert.ToDateTime(xmlDoc.SelectSingleNode("//Tarih_Date").Attributes["Tarih"].Value);
-        //}
+        public KurVeriService(IKurVeriRepository kurVeriRepository)
+        {
+            _kurVeriRepository = kurVeriRepository;
+        }
+
+        public List<KurVeri> GetList(Expression<Func<KurVeri, bool>> filter = null)
+        {
+            return _kurVeriRepository.GetList(filter);
+        }
     }
 }
