@@ -27,7 +27,7 @@
                 </table>
             </div>
         </div>
-        @*<div class="col-7">
+        <div class="col-7">
             <div class="row" id="carilistele">
                 <div class="col-6 ">
                     <tr><td><button type="button" class="btn btn-dark bs-tooltip-auto" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
@@ -104,7 +104,7 @@
                     }
                 </div>
             </div>
-        </div>*@
+        </div>
 
 
 
@@ -113,13 +113,13 @@
 </div>
 <div>
     @(Html.DevExtreme().DataGrid()
-    .ID("gridContainerasdasdadssdsdsd")
+    .ID("gridContainer")
     .ShowBorders(true)
     // .DataSource(d => d.Array().Data(new JS("list")).Key("CurrencyName"))
     .DataSource(new JS("list"))
 
     .Columns(c => {
-        c.Add().DataField("Id").Visible(true);
+        //c.Add().DataField("Id").Visible(true);
         c.Add().DataField("DovizCinsi");
         c.Add().DataField("DovizAlis").Format(Format.Currency);
         c.Add().DataField("DovizSatis").Format(Format.Currency);
@@ -156,39 +156,39 @@
 <script>
 
 
-   // function listele() {
+    function listele() {
 
-   //         //var divId = $("#carilistele");
-   //         //divId.css("visibility", "visible");
-   //              $("#cariDatagrid").dxDataGrid("instance").refresh();
-
-
-   // }
+            var divıd = $("#carilistele");
+            divıd.css("visibility", "visible");
+                 $("#caridatagrid").dxdatagrid("instance").refresh();
 
 
-   //$(document).ready(function () {
-   //    $(".Sil").click(function () {
+    }
 
-   //        if (confirm("Cariyi silmek istediğinizden emin misiniz?")) {
-   //            var ID = $(this).attr('name');
 
-   //            $.ajax({
-   //                url: '/Kullanici/Delete/' + ID,
-   //                type: 'POST',
-   //                dataType: 'json',
-   //                success: function (data) {
-   //                    $(this).parent('td').parent('td').remove();
-   //                      $("#buton").load(location.href + " #buton");
-   //                    $("#cariDatagrid").dxDataGrid("instance").refresh();
-   //                }
-   //            });
-   //        }
+   $(document).ready(function () {
+       $(".sil").click(function () {
 
-   //    });
+           if (confirm("cariyi silmek istediğinizden emin misiniz?")) {
+               var ıd = $(this).attr('name');
+
+               $.ajax({
+                   url: '/kullanici/delete/' + ıd,
+                   type: 'post',
+                   datatype: 'json',
+                   success: function (data) {
+                       $(this).parent('td').parent('td').remove();
+                         $("#buton").load(location.href + " #buton");
+                       $("#caridatagrid").dxdatagrid("instance").refresh();
+                   }
+               });
+           }
+
+       });
 
 
        
-   //});
+   });
 
 
     function eklemepopupacma() {
@@ -289,48 +289,57 @@
         })
     }
 
-   // $(document).ready(listele())
 
-    
+    var _url = "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038";
+
     let list = [];
     function getData() {
-        
-        
+        debugger;
     
         $.ajax({
-            url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
+            url:  _url,
             type: 'GET',
             contentType: "text",
             crossDomain: true,
             success: function (data) {
-                debugger;
-                             
+                
                
                 var tarihSaat = $(data).find("Tarih_Date");
                 var cur = $(tarihSaat).find("Currency");
                 $(cur).each(function (i, item) {
-                    debugger;
+                 
                     var veri = {};
-                    veri.Id = 1;
+                   /* veri.Id = 1;*/
                     
                     veri.DovizCinsi = $(item).find("CurrencyName").text();                    
                     veri.DovizAlis = $(item).find("ForexBuying").text();
                     veri.DovizSatis = $(item).find("ForexSelling").text();
                     veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
                     veri.EfektifSatis = $(item).find("BanknoteSelling").text();                  
-
-                    
+                                       
                  
                     list.push(veri);
                 })
                  console.log(list);                
-                $("#gridContainerasdasdadssdsdsd").dxDataGrid("instance").refresh();
+                $("#gridContainer").dxDataGrid("instance").refresh();
 
             }
 
-        });
+        }); 
+      
         
     }
+
+   
+    setInterval(function () {
+        debugger;
+       
+      var _url = "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038";
+        },10*1000)
+    
+    
+    
+    
 </script>
 
 
