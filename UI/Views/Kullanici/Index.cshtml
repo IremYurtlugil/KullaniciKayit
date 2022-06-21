@@ -3,7 +3,11 @@
     ViewData["Title"] = "Index";
 
 }
-
+<style type="text/css">
+    #info {
+        margin: 0 auto;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-5">
@@ -28,7 +32,7 @@
             </div>
         </div>
         <div class="col-7">
-            <div class="row" id="carilistele">
+            <div class="row" id="carilistele" style="visibility">
                 <div class="col-6 ">
                     <tr><td><button type="button" class="btn btn-dark bs-tooltip-auto" onclick="eklemepopupacma()">Yeni Cari Ekle</button></td></tr>
                     @(Html.DevExtreme().DataGrid<CariVM>()
@@ -49,7 +53,7 @@
     .OnSelectionChanged("selection_changed")
 )
 
-                    <div id="info">
+                    <div id="info" class="row">                      
                         <div class="col-md-6">
                             <table class="table">
 
@@ -105,14 +109,7 @@
                 </div>
             </div>
         </div>
-
-
-
-
-    </div>
-</div>
-<div>
-    @(Html.DevExtreme().DataGrid()
+           @(Html.DevExtreme().DataGrid()
     .ID("gridContainer")
     .ShowBorders(true)
     // .DataSource(d => d.Array().Data(new JS("list")).Key("CurrencyName"))
@@ -125,10 +122,15 @@
         c.Add().DataField("DovizSatis").Format(Format.Currency);
         c.Add().DataField("EfektifAlıs").Format(Format.Currency);
         c.Add().DataField("EfektifSatis").Format(Format.Currency);
+        c.Add().DataField("tarih").Format("d  MMM, yyyy HH:mm:ss");
     })
 )
 
+
+
+    </div>
 </div>
+
 
 @(Html.DevExtreme().Popup().ID("cariekleguncelle")
 
@@ -187,7 +189,7 @@
        });
 
 
-       
+
    });
 
 
@@ -289,57 +291,98 @@
         })
     }
 
+    var d = new Date();
+                var saat = d.getHours();
+                var dakika = d.getMinutes();
+                var zaman = "" + saat + ":" + dakika;
+                
 
-    var _url = "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038";
+                //alert(d);
+   
 
     let list = [];
     function getData() {
         debugger;
-    
+
         $.ajax({
-            url:  _url,
+            url:  "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
             type: 'GET',
             contentType: "text",
             crossDomain: true,
             success: function (data) {
-                
-               
+
+
                 var tarihSaat = $(data).find("Tarih_Date");
                 var cur = $(tarihSaat).find("Currency");
                 $(cur).each(function (i, item) {
-                 
+
                     var veri = {};
                    /* veri.Id = 1;*/
-                    
-                    veri.DovizCinsi = $(item).find("CurrencyName").text();                    
+
+                    veri.DovizCinsi = $(item).find("CurrencyName").text();
                     veri.DovizAlis = $(item).find("ForexBuying").text();
                     veri.DovizSatis = $(item).find("ForexSelling").text();
                     veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
-                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();                  
-                                       
-                 
+                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();
+                      veri.tarih = d;
+
+
                     list.push(veri);
                 })
-                 console.log(list);                
+                 console.log(list);
                 $("#gridContainer").dxDataGrid("instance").refresh();
 
             }
 
-        }); 
-      
-        
+        });
+
+
     }
 
-   
+
+
     setInterval(function () {
-        debugger;
-       
-      var _url = "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038";
+        debugger;   
+
+        $.ajax({
+            url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
+            type: "GET",
+            dataType: 'xml',
+            success: function (gelenVeri) {
+                debugger;
+                var day = new Date();
+                list = [];
+                
+                var tarihSaat = $(gelenVeri).find("Tarih_Date");
+                var cur = $(tarihSaat).find("Currency");
+                $(cur).each(function (i, item) {
+                    
+                    var veri = {};
+                   /* veri.Id = 1;*/
+
+                    veri.DovizCinsi = $(item).find("CurrencyName").text();
+                    veri.DovizAlis = $(item).find("ForexBuying").text();
+                    veri.DovizSatis = $(item).find("ForexSelling").text();
+                    veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
+                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();
+                    veri.tarih = day;
+
+                    list.push(veri);
+                   
+                })
+                $("#gridContainer").dxDataGrid("instance").option('dataSource', list);
+                $("#gridContainer").dxDataGrid("instance").refresh();
+
+                console.log("yenilendi");
+            }
+
+        });
+     
         },10*1000)
-    
-    
-    
-    
+
+
+
+
 </script>
 
 
