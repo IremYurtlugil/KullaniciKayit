@@ -53,7 +53,7 @@
     .OnSelectionChanged("selection_changed")
 )
 
-                    <div id="info" class="row">                      
+                    <div id="info" class="row">
                         <div class="col-md-6">
                             <table class="table">
 
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-           @(Html.DevExtreme().DataGrid()
+        @(Html.DevExtreme().DataGrid()
     .ID("gridContainer")
     .ShowBorders(true)
     // .DataSource(d => d.Array().Data(new JS("list")).Key("CurrencyName"))
@@ -132,9 +132,10 @@
 </div>
 
 
-@(Html.DevExtreme().Popup().ID("cariekleguncelle")
-
-      .ContentTemplate(new TemplateName("carieklegucelleteplate")))
+@(Html.DevExtreme()
+        .Popup()
+        .ID("cariekleguncelle")
+        .ContentTemplate(new TemplateName("carieklegucelleteplate")))
 
 @using (Html.DevExtreme().NamedTemplate("carieklegucelleteplate"))
 {
@@ -295,90 +296,62 @@
                 var saat = d.getHours();
                 var dakika = d.getMinutes();
                 var zaman = "" + saat + ":" + dakika;
-                
+
 
                 //alert(d);
-   
 
+
+    let refreshRate = 2 * 1000;
     let list = [];
+
     function getData() {
-        debugger;
-
-        $.ajax({
-            url:  "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
-            type: 'GET',
-            contentType: "text",
-            crossDomain: true,
-            success: function (data) {
+        DataToGrid(list);
+    }
 
 
-                var tarihSaat = $(data).find("Tarih_Date");
-                var cur = $(tarihSaat).find("Currency");
-                $(cur).each(function (i, item) {
+    function DataToGrid(gelenVeri) {
+        list = [];
 
-                    var veri = {};
-                   /* veri.Id = 1;*/
+        var tarihSaat = $(gelenVeri).find("Tarih_Date");
+        var cur = $(tarihSaat).find("Currency");
+        $(cur).each(function (i, item) {
+            var veri = {};
+            /* veri.Id = 1;*/
 
-                    veri.DovizCinsi = $(item).find("CurrencyName").text();
-                    veri.DovizAlis = $(item).find("ForexBuying").text();
-                    veri.DovizSatis = $(item).find("ForexSelling").text();
-                    veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
-                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();
-                      veri.tarih = d;
+            veri.DovizCinsi = $(item).find("CurrencyName").text();
+            veri.DovizAlis = $(item).find("ForexBuying").text();
+            veri.DovizSatis = $(item).find("ForexSelling").text();
+            veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
+            veri.EfektifSatis = $(item).find("BanknoteSelling").text();
 
+            veri.tarih = new Date();
 
-                    list.push(veri);
-                })
-                 console.log(list);
-                $("#gridContainer").dxDataGrid("instance").refresh();
+            list.push(veri);
 
-            }
-
-        });
-
+        })
+        $("#gridContainer").dxDataGrid("instance").option('dataSource', list);
+        $("#gridContainer").dxDataGrid("instance").refresh();
 
     }
 
 
 
     setInterval(function () {
-        debugger;   
-
         $.ajax({
             url: "https://www.tcmb.gov.tr/kurlar/today.xml?_=1655302892038",
             type: "GET",
             dataType: 'xml',
             success: function (gelenVeri) {
-                debugger;
-                var day = new Date();
-                list = [];
-                
-                var tarihSaat = $(gelenVeri).find("Tarih_Date");
-                var cur = $(tarihSaat).find("Currency");
-                $(cur).each(function (i, item) {
-                    
-                    var veri = {};
-                   /* veri.Id = 1;*/
-
-                    veri.DovizCinsi = $(item).find("CurrencyName").text();
-                    veri.DovizAlis = $(item).find("ForexBuying").text();
-                    veri.DovizSatis = $(item).find("ForexSelling").text();
-                    veri.EfektifAlıs = $(item).find("BanknoteBuying").text();
-                    veri.EfektifSatis = $(item).find("BanknoteSelling").text();
-                    veri.tarih = day;
-
-                    list.push(veri);
-                   
-                })
-                $("#gridContainer").dxDataGrid("instance").option('dataSource', list);
-                $("#gridContainer").dxDataGrid("instance").refresh();
-
+                DataToGrid(gelenVeri);
                 console.log("yenilendi");
             }
 
         });
-     
-        },10*1000)
+
+    },
+        refreshRate)
+
+
 
 
 
